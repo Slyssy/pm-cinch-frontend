@@ -5,7 +5,7 @@ import cookie from 'cookie';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import NewUser from './containers/NewUser';
-import newOrganization from './components/newOrganization';
+import newOrganization from './containers/NewOrganization';
 
 //Todo: Write checkAuth function here
 //Todo: Check the cookies for a cookie called "loggedIn"

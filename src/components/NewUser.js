@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Dropdown from '../containers/Dropdown';
 
@@ -15,14 +15,10 @@ import {
 } from '@mui/material';
 
 const NewUser = (props) => {
-  console.log(props);
+  // console.log(props);
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(true);
-
-  // const [selection, setSelection] = useState('');
-
-  // const [orgID, setOrgID] = useState('');
 
   const [user, setUser] = useState({
     organizationId: '',
