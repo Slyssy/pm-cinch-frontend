@@ -96,7 +96,7 @@ const NewUser = (props) => {
           >
             <Dropdown />
             <Link to='/newOrganization'>
-              <p>Add Company</p>
+              <Button id='add-company-button'>Add Company</Button>
             </Link>
           </Box>
           <Box sx={{ width: '100%' }}>

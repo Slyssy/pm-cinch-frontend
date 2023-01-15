@@ -48,6 +48,7 @@ import MenuItem from '@mui/material/MenuItem';
 
 export default function Dropdown(props) {
   const [orgs, setOrgs] = useState([]);
+  // eslint-disable-next-line
   const [selection, setSelection] = useState('');
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
