@@ -52,7 +52,8 @@ const NewOrganization = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    const payload = { ...org };
+    props.addOrgs(payload);
     axios.post('https://pm-cinch-backend.vercel.app/organizations', {
       companyName: org.companyName,
       street1: org.street1,

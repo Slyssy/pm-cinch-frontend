@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import NewOrganizations from '../components/NewOrganization';
-import { getOrgs, selectDropdown } from '../redux/actions';
+import { addOrgs } from '../redux/actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -9,10 +9,9 @@ const mapStateToProps = (state) => {
   };
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     selectDropdown: (selection) => dispatch(selectDropdown(selection)),
-//     getOrgs: () => dispatch(getOrgs()),
-//   };
-// };
-export default connect(mapStateToProps)(NewOrganizations);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addOrgs: (org) => dispatch(addOrgs(org)),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(NewOrganizations);
