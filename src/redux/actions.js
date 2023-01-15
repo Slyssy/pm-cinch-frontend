@@ -2,6 +2,13 @@ import axios from 'axios';
 import Geocode from 'react-geocode';
 const apiKey = process.env.REACT_APP_API_KEY;
 
+export const addToken = (token) => {
+  return {
+    type: 'ADD_TOKEN',
+    value: token,
+  };
+};
+
 export const addOrgs = (org) => {
   return {
     type: 'ADD_ORG',
@@ -40,6 +47,24 @@ export const getOrgs = () => {
       .then((response) => {
         const action = {
           type: 'GET_ORGS',
+          value: response.data,
+        };
+        dispatch(action);
+      });
+  };
+};
+
+export const getProjects = (token) => {
+  return (dispatch) => {
+    axios
+      .get('https://pm-cinch-backend.vercel.app/projects', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const action = {
+          type: 'GET_PROJECTS',
           value: response.data,
         };
         dispatch(action);

@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 
 const Login = (props) => {
-  // console.log(props);
+  console.log(props);
   const navigate = useNavigate();
 
   const [user, setUser] = useState({
@@ -18,8 +18,8 @@ const Login = (props) => {
     password: '',
   });
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
 
   const handleTextChange = (e) => {
     // console.log(e.target);
@@ -36,23 +36,26 @@ const Login = (props) => {
   const login = (e) => {
     e.preventDefault();
     // # Send POST request to server for user.
-    // // const payload = { ...user };
-    // // props.userLogin(payload);
-    // axios
-    //   .post('https://pm-cinch-backend.vercel.app/signin', {
-    //     email,
-    //     password,
-    //   })
-    //   .then((response) => {
-    //     //? Setting token using props from app.js
-    //     console.log(response.data.token);
-    //     props.setToken(response.data.token);
-    //     // # If successful...
-    //     //? set cookie here
-    //     //? set loggedIn = true and max-age = 60*1000 (one minute)
-    //     document.cookie = 'loggedIn=true;max-age=60*1000';
-    //     navigate('/');
-    //   });
+    // const payload = { ...user };
+    // props.userLogin(payload);
+    axios
+      .post('https://pm-cinch-backend.vercel.app/signin', {
+        email: user.email,
+        password: user.password,
+      })
+      .then((response) => {
+        console.log(user.email);
+        console.log(user.password);
+        //? Setting token using props from app.js
+        console.log(response.data.token);
+        const payload = response.data.token;
+        props.addToken(payload);
+        // # If successful...
+        //? set cookie here
+        //? set loggedIn = true and max-age = 60*1000 (one minute)
+        document.cookie = 'loggedIn=true;max-age=60*1000';
+        navigate('/');
+      });
     document.cookie = 'loggedIn=true;max-age=60*1000';
     navigate('/');
   };

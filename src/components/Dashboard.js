@@ -12,21 +12,34 @@ import {
   TableRow,
 } from '@mui/material';
 
-const Dashboard = () => {
+const Dashboard = (props) => {
+  console.log(props);
   const [projects, setProjects] = useState([]);
 
   const totalExpense = (array) => {
     return array.reduce((acc, cur) => acc + cur, 0);
   };
   useEffect(() => {
+    const bearToken = props.token[0];
     axios
-      .get('https://pm-cinch-backend.vercel.app/projects')
-      .then((response) => {
-        console.log(response.data);
-        setProjects(response.data);
-      });
+      .get('https://pm-cinch-backend.vercel.app/projects', {
+        headers: {
+          Authorization: `Bearer ${bearToken}`,
+        },
+      })
+      .then(
+        (response) => {
+          console.log(response.data);
+          setProjects(response.data);
+        },
+        [props.token]
+      );
+    props.getProjects(bearToken);
+    setProjects(props.projects);
+    console.log(projects);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [props.token[0]]);
   return (
     <Container>
       <Table>

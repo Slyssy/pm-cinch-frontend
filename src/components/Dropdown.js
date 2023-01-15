@@ -1,47 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
-// const Dropdown = (props) => {
-//   // console.log(props);
-//   const [orgs, setOrgs] = useState([]);
-//   const [selection, setSelection] = useState('Select Company');
-
-//   const handleSelection = (e) => {
-//     console.log(e.target.value);
-// const payload = e.target.value;
-// props.selectDropdown(payload);
-// setSelection(e.target.value);
-//   };
-
-// useEffect(() => {
-//   axios
-//     .get('https://pm-cinch-backend.vercel.app/organizations')
-//     .then((response) => {
-//       console.log(response.data);
-//       setOrgs(response.data);
-//     });
-//   props.getOrgs();
-//   // eslint-disable-next-line react-hooks/exhaustive-deps
-// }, []);
-
-//   return (
-//     <form>
-//       <select
-//         defaultValue={selection}
-//         // value={selection}
-//         onChange={handleSelection}
-//       >
-// {orgs.map((org) => {
-//   // console.log(org);
-//   return <option key={`${org.id}__option`}>{org.company_name}</option>;
-//         })}
-//       </select>
-//     </form>
-//   );
-// };
-
-// export default Dropdown;
-
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
