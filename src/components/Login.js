@@ -14,7 +14,7 @@ const Login = (props) => {
   const navigate = useNavigate();
 
   const [user, setUser] = useState({
-    username: '',
+    email: '',
     password: '',
   });
 
@@ -34,8 +34,8 @@ const Login = (props) => {
   };
   // console.log(user);
   const login = (e) => {
-    // e.preventDefault();
-    // // # Send POST request to server for user.
+    e.preventDefault();
+    // # Send POST request to server for user.
     // // const payload = { ...user };
     // // props.userLogin(payload);
     // axios

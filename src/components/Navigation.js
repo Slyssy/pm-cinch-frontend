@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import cookie from 'cookie';
 import { AppBar, Toolbar, Typography } from '@mui/material';
 
@@ -20,7 +20,9 @@ const Navigation = () => {
         </Typography>
         <ul className='nav-list'>
           <li className='nav-list-item'>
-            <Typography style={{ color: 'white' }}>New User</Typography>
+            <Link to='/newUser'>
+              <Typography style={{ color: 'white' }}>New User</Typography>
+            </Link>
           </li>
           <li className='nav-list-item'>
             <Typography style={{ color: 'white' }}>New Project</Typography>

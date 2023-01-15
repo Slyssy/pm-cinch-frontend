@@ -4,6 +4,8 @@ import cookie from 'cookie';
 // import AdminDashboard from './containers/AdminDashboard';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
+import NewUser from './containers/NewUser';
+import newOrganization from './components/newOrganization';
 
 //Todo: Write checkAuth function here
 //Todo: Check the cookies for a cookie called "loggedIn"
@@ -36,10 +38,11 @@ const Router = () => {
       <Route path='/login' element={<Login />} />
       {/* <Route path='/listings' element={<Listings />} /> */}
       {/* <Route path='/listings/:id' element={<Details />} /> */}
-      {/* <Route
-        path='/addListing'
-        element={<ProtectedRoute component={AddListing} />}
-      /> */}
+      <Route path='/newUser' element={<ProtectedRoute component={NewUser} />} />
+      <Route
+        path='/newOrganization'
+        element={<ProtectedRoute component={newOrganization} />}
+      />
       {/* <Route path='/map' element={<Map />} /> */}
     </Routes>
   );

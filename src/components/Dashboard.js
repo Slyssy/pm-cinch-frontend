@@ -73,19 +73,41 @@ const Dashboard = () => {
                   ])}
                 </TableCell>
                 <TableCell>
-                  {((project.original_revenue -
-                    totalExpense([
-                      project.budgeted_labor_expense,
-                      project.budgeted_material_expense,
-                      project.budgeted_miscellaneous_expense,
-                      project.budgeted_subcontractor_expense,
-                    ])) /
-                    project.original_revenue) *
-                    100}
+                  {isNaN(
+                    ((project.original_revenue -
+                      totalExpense([
+                        project.budgeted_labor_expense,
+                        project.budgeted_material_expense,
+                        project.budgeted_miscellaneous_expense,
+                        project.budgeted_subcontractor_expense,
+                      ])) /
+                      project.original_revenue) *
+                      100
+                  )
+                    ? 'TBD'
+                    : ((project.original_revenue -
+                        totalExpense([
+                          project.budgeted_labor_expense,
+                          project.budgeted_material_expense,
+                          project.budgeted_miscellaneous_expense,
+                          project.budgeted_subcontractor_expense,
+                        ])) /
+                        project.original_revenue) *
+                      100}
                 </TableCell>
                 <TableCell>
-                  {NaN
-                    ? 'N/A'
+                  {isNaN(
+                    ((project.adjusted_revenue -
+                      totalExpense([
+                        project.actual_labor_expense,
+                        project.actual_material_expense,
+                        project.actual_miscellaneous_expense,
+                        project.actual_subcontractor_expense,
+                      ])) /
+                      project.original_revenue) *
+                      100
+                  )
+                    ? 'TBD'
                     : ((project.adjusted_revenue -
                         totalExpense([
                           project.actual_labor_expense,
