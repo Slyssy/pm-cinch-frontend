@@ -9,6 +9,13 @@ export const addToken = (token) => {
   };
 };
 
+export const addUser = (user) => {
+  return {
+    type: 'ADD_USER',
+    value: user,
+  };
+};
+
 export const addOrgs = (org) => {
   return {
     type: 'ADD_ORG',
@@ -69,5 +76,67 @@ export const getProjects = (token) => {
         };
         dispatch(action);
       });
+  };
+};
+
+// export const addProject = (project, esd, ecd) => {
+//   return (dispatch) => {
+//     axios
+//       .post('https://pm-cinch-backend.vercel.app/projects', {
+//         projectName: project.projectName,
+//         street1: project.street1,
+//         street2: project.street2,
+//         city: project.city,
+//         state: project.state,
+//         zip: project.zip,
+//         projectStatus: project.projectStatus,
+//         projectMargin: project.projectMargin,
+//         originalRevenue: project.originalRevenue,
+//         adjustedRevenue: project.adjustedRevenue,
+//         budgetedMaterialExpense: project.budgetedMaterialExpense,
+//         budgetedLaborExpense: project.budgetedLaborExpense,
+//         budgetedSubcontractorExpense: project.budgetedSubcontractorExpense,
+//         budgetedMiscellaneousExpense: project.budgetedMiscellaneousExpense,
+//         adjustedMaterialExpense: project.adjustedMaterialExpense,
+//         adjustedLaborExpense: project.adjustedLaborExpense,
+//         adjustedSubcontractorExpense: project.adjustedSubcontractorExpense,
+//         adjustedMiscellaneousExpense: project.adjustedMiscellaneousExpense,
+//         actualMaterialExpense: project.actualMaterialExpense,
+//         actualLaborExpense: project.actualLaborExpense,
+//         actualSubcontractorExpense: project.actualSubcontractorExpense,
+//         actualMiscellaneousExpense: project.actualMiscellaneousExpense,
+//         // ESD: formatDate(esd),
+//         // ECD: formatDate(ecd),
+//         ASD: project.ASD,
+//         ACD: project.ACD,
+//       })
+//       .then((response) => {
+//         const action = {
+//           type: 'ADD_PROJECT',
+//           value: project,
+//         };
+//         dispatch(action);
+//       });
+//   };
+// };
+
+// export const deleteProject = (index) => {
+//   return {
+//     type: 'DELETE_PROJECT',
+//     value: index,
+//   };
+// };
+
+export const addESD = (esd) => {
+  return {
+    type: 'ADD_ESD',
+    value: esd,
+  };
+};
+
+export const addECD = (ecd) => {
+  return {
+    type: 'ADD_ECD',
+    value: ecd,
   };
 };

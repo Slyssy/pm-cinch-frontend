@@ -23,7 +23,7 @@ export default function Dropdown(props) {
 
   useEffect(() => {
     axios
-      .get('https://pm-cinch-backend.vercel.app/organizations')
+      .post('https://pm-cinch-backend.vercel.app/projects')
       .then((response) => {
         console.log(response.data);
         setOrgs(response.data);

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import Login from '../components/Login';
-import { addToken, getOrgs, selectDropdown } from '../redux/actions';
+import { addToken, addUser, getOrgs, selectDropdown } from '../redux/actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -12,6 +12,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     addToken: (token) => dispatch(addToken(token)),
+    addUser: (user) => dispatch(addUser(user)),
     selectDropdown: (selection) => dispatch(selectDropdown(selection)),
     getOrgs: () => dispatch(getOrgs()),
   };

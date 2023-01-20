@@ -25,7 +25,9 @@ const Navigation = () => {
             </Link>
           </li>
           <li className='nav-list-item'>
-            <Typography style={{ color: 'white' }}>New Project</Typography>
+            <Link to='/newProject'>
+              <Typography style={{ color: 'white' }}>New Project</Typography>
+            </Link>
           </li>
           <li
             className='nav-list-item'

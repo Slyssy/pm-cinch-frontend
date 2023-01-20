@@ -62,7 +62,7 @@ const NewUser = (props) => {
     console.log(orgID);
     e.preventDefault();
 
-    axios.post('https://pm-cinch-backend.vercel.app/signup', {
+    axios.post('https://pm-cinch-backend.vercel.app/user', {
       organizationId: user.organizationId,
       firstName: user.first_name,
       lastName: user.last_name,

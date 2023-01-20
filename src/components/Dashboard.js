@@ -16,8 +16,17 @@ const Dashboard = (props) => {
   console.log(props);
   const [projects, setProjects] = useState([]);
 
+  let USDollar = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
   const totalExpense = (array) => {
-    return array.reduce((acc, cur) => acc + cur, 0);
+    return array.reduce((acc, cur) => +acc + +cur, 0);
+  };
+
+  const formatDate = (date) => {
+    return date;
   };
   useEffect(() => {
     const bearToken = props.token[0];
@@ -29,14 +38,13 @@ const Dashboard = (props) => {
       })
       .then(
         (response) => {
-          console.log(response.data);
-          setProjects(response.data);
+          console.log(response.data.rows);
+          setProjects(response.data.rows);
         },
         [props.token]
       );
     props.getProjects(bearToken);
-    setProjects(props.projects);
-    console.log(projects);
+    // console.log(projects);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.token[0]]);
@@ -59,31 +67,41 @@ const Dashboard = (props) => {
         </TableHead>
         <TableBody>
           {projects.map((project) => {
+            const formattedESD = formatDate(project.estimated_start_date);
+            const formattedECD = formatDate(project.estimated_complete_date);
             return (
               <TableRow key={`${project.id}__row`}>
                 <TableCell>{project.project_name}</TableCell>
                 <TableCell>{project.project_status}</TableCell>
                 <TableCell>
-                  {!project.original_revenue ? 'TBD' : project.original_revenue}
+                  {!project.original_revenue
+                    ? 'TBD'
+                    : `${USDollar.format(project.original_revenue)}`}
                 </TableCell>
                 <TableCell>
-                  {!project.adjusted_revenue ? 'TBD' : project.adjusted_revenue}
+                  {!project.adjusted_revenue
+                    ? 'TBD'
+                    : `${USDollar.format(project.adjusted_revenue)}`}
                 </TableCell>
                 <TableCell>
-                  {totalExpense([
-                    project.budgeted_labor_expense,
-                    project.budgeted_material_expense,
-                    project.budgeted_miscellaneous_expense,
-                    project.budgeted_subcontractor_expense,
-                  ])}
+                  {`${USDollar.format(
+                    totalExpense([
+                      project.budgeted_labor_expense,
+                      project.budgeted_material_expense,
+                      project.budgeted_miscellaneous_expense,
+                      project.budgeted_subcontractor_expense,
+                    ])
+                  )}`}
                 </TableCell>
                 <TableCell>
-                  {totalExpense([
-                    project.actual_labor_expense,
-                    project.actual_material_expense,
-                    project.actual_miscellaneous_expense,
-                    project.actual_subcontractor_expense,
-                  ])}
+                  {`${USDollar.format(
+                    totalExpense([
+                      project.actual_labor_expense,
+                      project.actual_material_expense,
+                      project.actual_miscellaneous_expense,
+                      project.actual_subcontractor_expense,
+                    ])
+                  )}`}
                 </TableCell>
                 <TableCell>
                   {isNaN(
@@ -98,15 +116,17 @@ const Dashboard = (props) => {
                       100
                   )
                     ? 'TBD'
-                    : ((project.original_revenue -
-                        totalExpense([
-                          project.budgeted_labor_expense,
-                          project.budgeted_material_expense,
-                          project.budgeted_miscellaneous_expense,
-                          project.budgeted_subcontractor_expense,
-                        ])) /
-                        project.original_revenue) *
-                      100}
+                    : `${parseFloat(
+                        ((project.original_revenue -
+                          totalExpense([
+                            project.budgeted_labor_expense,
+                            project.budgeted_material_expense,
+                            project.budgeted_miscellaneous_expense,
+                            project.budgeted_subcontractor_expense,
+                          ])) /
+                          project.original_revenue) *
+                          100
+                      ).toFixed(2)} %`}
                 </TableCell>
                 <TableCell>
                   {isNaN(
@@ -131,8 +151,8 @@ const Dashboard = (props) => {
                         project.original_revenue) *
                       100}
                 </TableCell>
-                <TableCell>{project.estimated_start_date}</TableCell>
-                <TableCell>{project.estimated_complete_date}</TableCell>
+                <TableCell>{formattedESD}</TableCell>
+                <TableCell>{formattedECD}</TableCell>
               </TableRow>
             );
           })}

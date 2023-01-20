@@ -7,6 +7,7 @@ const mapStateToProps = (state) => {
   return {
     token: state.token,
     projects: state.projects,
+    user: state.user,
   };
 };
 

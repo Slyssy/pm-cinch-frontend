@@ -8,6 +8,14 @@ const token = (state = [], action) => {
       return state;
   }
 };
+const user = (state = [], action) => {
+  switch (action.type) {
+    case 'ADD_USER':
+      return [action.value];
+    default:
+      return state;
+  }
+};
 
 const organizations = (state = [], action) => {
   switch (action.type) {
@@ -31,9 +39,40 @@ const projects = (state = [], action) => {
   switch (action.type) {
     case 'GET_PROJECTS':
       return action.value;
+    //     case 'ADD_PROJECT':
+    //       return [...state, action.value];
+    //     case 'DELETE_PROJECT':
+    //       const projects = [...state];
+    //       projects.splice(action.value, 1);
+    //       return projects;
     default:
       return state;
   }
 };
 
-export default combineReducers({ token, organizations, selection, projects });
+const esd = (state = [], action) => {
+  switch (action.type) {
+    case 'ADD_ESD':
+      return [action.value];
+    default:
+      return state;
+  }
+};
+
+const ecd = (state = [], action) => {
+  switch (action.type) {
+    case 'ADD_ECD':
+      return [action.value];
+    default:
+      return state;
+  }
+};
+export default combineReducers({
+  token,
+  user,
+  organizations,
+  projects,
+  selection,
+  esd,
+  ecd,
+});

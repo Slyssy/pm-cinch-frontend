@@ -49,11 +49,16 @@ const Login = (props) => {
         //? Setting token using props from app.js
         console.log(response.data.token);
         const payload = response.data.token;
+        const userInfo = response.data;
+        console.log(userInfo);
         props.addToken(payload);
+        props.addUser(user.info);
         // # If successful...
         //? set cookie here
         //? set loggedIn = true and max-age = 60*1000 (one minute)
-        document.cookie = 'loggedIn=true;max-age=60*1000';
+        response.data.token
+          ? (document.cookie = 'loggedIn=true;max-age=60*1000')
+          : response.send('Invalid Username or Password');
         navigate('/');
       });
     document.cookie = 'loggedIn=true;max-age=60*1000';
