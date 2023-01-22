@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Spinner from './Spinner';
 // # MUI Table Imports......................................
@@ -71,7 +72,9 @@ const Dashboard = (props) => {
             const formattedECD = formatDate(project.estimated_complete_date);
             return (
               <TableRow key={`${project.id}__row`}>
-                <TableCell>{project.project_name}</TableCell>
+                <Link to={`/projects/${project.id}`}>
+                  <TableCell>{project.project_name}</TableCell>
+                </Link>
                 <TableCell>{project.project_status}</TableCell>
                 <TableCell>
                   {!project.original_revenue

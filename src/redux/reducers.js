@@ -67,6 +67,16 @@ const ecd = (state = [], action) => {
       return state;
   }
 };
+
+const coordinates = (state = [], action) => {
+  switch (action.type) {
+    case 'GET_COORDINATES':
+      return action.value;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   token,
   user,
@@ -75,4 +85,5 @@ export default combineReducers({
   selection,
   esd,
   ecd,
+  coordinates,
 });

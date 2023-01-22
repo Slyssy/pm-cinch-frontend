@@ -6,6 +6,7 @@ const state = {
   projects: [],
   esd: [],
   ecd: [],
+  coordinates: [],
 };
 
 export default state;
