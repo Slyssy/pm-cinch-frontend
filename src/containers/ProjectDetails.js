@@ -7,6 +7,7 @@ const mapStateToProps = (state) => {
   return {
     projects: state.projects,
     coordinates: state.coordinates,
+    user: state.user,
   };
 };
 

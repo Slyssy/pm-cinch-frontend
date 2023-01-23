@@ -59,10 +59,11 @@ const Login = (props) => {
         response.data.token
           ? (document.cookie = 'loggedIn=true;max-age=60*1000')
           : response.send('Invalid Username or Password');
+        document.cookie = 'loggedIn=true;max-age=60*1000';
         navigate('/');
       });
-    document.cookie = 'loggedIn=true;max-age=60*1000';
-    navigate('/');
+
+    // navigate('/');
   };
 
   // const theme = createTheme({

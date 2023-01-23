@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import Spinner from './Spinner';
+// import Spinner from './Spinner';
 // # MUI Table Imports......................................
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 import {
   Container,
   Table,
@@ -26,9 +26,6 @@ const Dashboard = (props) => {
     return array.reduce((acc, cur) => +acc + +cur, 0);
   };
 
-  const formatDate = (date) => {
-    return date;
-  };
   useEffect(() => {
     const bearToken = props.token[0];
     axios
@@ -68,8 +65,6 @@ const Dashboard = (props) => {
         </TableHead>
         <TableBody>
           {projects.map((project) => {
-            const formattedESD = formatDate(project.estimated_start_date);
-            const formattedECD = formatDate(project.estimated_complete_date);
             return (
               <TableRow key={`${project.id}__row`}>
                 <Link to={`/projects/${project.id}`}>
@@ -154,8 +149,8 @@ const Dashboard = (props) => {
                         project.original_revenue) *
                       100}
                 </TableCell>
-                <TableCell>{formattedESD}</TableCell>
-                <TableCell>{formattedECD}</TableCell>
+                <TableCell>{project.estimated_start_date}</TableCell>
+                <TableCell>{project.estimated_complete_date}</TableCell>
               </TableRow>
             );
           })}
