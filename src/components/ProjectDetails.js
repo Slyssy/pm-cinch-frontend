@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link, useNavigate, Navigate } from 'react-router-dom';
 import MyMap from '../containers/Map';
 import DatePicker from 'react-datepicker';
 
@@ -17,9 +17,12 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
+import axios from 'axios';
 
 const ProjectDetails = (props) => {
   console.log(props);
+
+  const navigate = useNavigate();
 
   let USDollar = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -36,6 +39,17 @@ const ProjectDetails = (props) => {
   const [asd, setAsd] = useState(null);
   const [acd, setAcd] = useState(null);
 
+  const handleDelete = () => {
+    axios
+      .delete(`https://pm-cinch-backend.vercel.app/projects/${project.id}`, {
+        headers: {
+          Authorization: `Bearer ${props.token[0]}`,
+        },
+      })
+      .then(() => {
+        navigate('/');
+      });
+  };
   useEffect(() => {
     props.getCoordinates(address);
     // console.log(props.getCoordinates(listing.address));
@@ -307,7 +321,8 @@ const ProjectDetails = (props) => {
         marginTop='4em'
       >
         <Button variant='contained'>Update Project</Button>
-        <Button variant='contained' color='error'>
+
+        <Button variant='contained' color='error' onClick={handleDelete}>
           Delete Project
         </Button>
       </Stack>

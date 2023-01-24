@@ -41,10 +41,8 @@ const projects = (state = [], action) => {
       return action.value;
     //     case 'ADD_PROJECT':
     //       return [...state, action.value];
-    //     case 'DELETE_PROJECT':
-    //       const projects = [...state];
-    //       projects.splice(action.value, 1);
-    //       return projects;
+    case 'DELETE_PROJECT':
+      return { ...state };
     default:
       return state;
   }

@@ -149,8 +149,22 @@ const Dashboard = (props) => {
                         project.original_revenue) *
                       100}
                 </TableCell>
-                <TableCell>{project.estimated_start_date}</TableCell>
-                <TableCell>{project.estimated_complete_date}</TableCell>
+                <TableCell>
+                  {`${new Date(project.estimated_start_date).getMonth() + 1}
+                  /${new Date(
+                    project.estimated_start_date
+                  ).getDate()}/${new Date(
+                    project.estimated_start_date
+                  ).getFullYear()}`}
+                </TableCell>
+                <TableCell>{`${
+                  new Date(project.estimated_complete_date).getMonth() + 1
+                }
+                  /${new Date(
+                    project.estimated_complete_date
+                  ).getDate()}/${new Date(
+                  project.estimated_complete_date
+                ).getFullYear()}`}</TableCell>
               </TableRow>
             );
           })}

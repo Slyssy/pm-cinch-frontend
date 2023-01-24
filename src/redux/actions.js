@@ -78,6 +78,24 @@ export const getProjects = (token) => {
       });
   };
 };
+export const deleteProject = (token, id) => {
+  return (dispatch) => {
+    console.log('deleteProject() called', id);
+    axios
+      .delete(`https://pm-cinch-backend.vercel.app/projects/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const action = {
+          type: 'DELETE_PROJECT',
+          value: response.data,
+        };
+        dispatch(action);
+      });
+  };
+};
 
 // export const addProject = (project, esd, ecd) => {
 //   return (dispatch) => {
