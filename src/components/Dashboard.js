@@ -67,9 +67,12 @@ const Dashboard = (props) => {
           {projects.map((project) => {
             return (
               <TableRow key={`${project.id}__row`}>
-                <Link to={`/projects/${project.id}`}>
-                  <TableCell>{project.project_name}</TableCell>
-                </Link>
+                <TableCell>
+                  <Link to={`/projects/${project.id}`}>
+                    {project.project_name}
+                  </Link>
+                </TableCell>
+
                 <TableCell>{project.project_status}</TableCell>
                 <TableCell>
                   {!project.original_revenue
