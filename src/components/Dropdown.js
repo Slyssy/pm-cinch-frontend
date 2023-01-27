@@ -1,71 +1,61 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import { selectDropdown } from '../redux/actions';
 
 export default function Dropdown(props) {
+  console.log(props);
   const [orgs, setOrgs] = useState([]);
   // eslint-disable-next-line
   const [selection, setSelection] = useState('');
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-    const payload = event.target.value;
-    props.selectDropdown(payload);
+
+  const handleChange = (event) => {
     setSelection(event.target.value);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
+    const payload = selection;
+    console.log(payload);
+    props.selectDropdown(event.target.value);
   };
 
   useEffect(() => {
     axios
-      .post('https://pm-cinch-backend.vercel.app/projects')
+      .get('https://pm-cinch-backend.vercel.app/organizations')
       .then((response) => {
         console.log(response.data);
         setOrgs(response.data);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
       });
+
     props.getOrgs();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   return (
-    <div>
-      <Button
-        id='select-company-button'
-        aria-controls={open ? 'select-company-menu' : undefined}
-        aria-haspopup='true'
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-      >
-        Select Company
-      </Button>
-      <Menu
-        id='select-company-menu'
-        aria-labelledby='select-company-button'
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-      >
-        {orgs.map((org) => {
-          // console.log(org);
-          return (
-            <MenuItem onClick={handleClose} key={`${org.id}__option`}>
-              {org.company_name}
-            </MenuItem>
-          );
-        })}
-      </Menu>
-    </div>
+    <Box sx={{ m: 1, minWidth: 180 }}>
+      <FormControl variant='standard' fullWidth>
+        <InputLabel>Select Company</InputLabel>
+        <Select
+          value={selection}
+          label='Select Company'
+          onChange={handleChange}
+        >
+          {orgs.map((org) => {
+            // console.log(org);
+            return (
+              <MenuItem key={`${org.id}__option`} value={org.company_name}>
+                {org.company_name}
+              </MenuItem>
+            );
+          })}
+        </Select>
+      </FormControl>
+    </Box>
   );
 }

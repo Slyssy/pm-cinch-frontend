@@ -183,7 +183,9 @@ const ProjectDetails = (props) => {
             spacing={2}
             marginTop='2em'
           >
-            <Button variant='outlined'>+ New Expense</Button>
+            <Link to={`/newExpense`}>
+              <Button variant='outlined'>+ New Expense</Button>
+            </Link>
             <Button variant='outlined' disabled>
               + Time Entry
             </Button>
@@ -212,105 +214,130 @@ const ProjectDetails = (props) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Expense</TableCell>
+              <TableCell></TableCell>
               <TableCell>Budgeted</TableCell>
               <TableCell>Adjusted</TableCell>
               <TableCell>Actual</TableCell>
               <TableCell>Variance</TableCell>
             </TableRow>
           </TableHead>
-          <TableRow>
-            <TableCell>Labor Expense:</TableCell>
-            <TableCell>{`${USDollar.format(
-              project.budgeted_labor_expense
-            )}`}</TableCell>
-            <TableCell>{`${USDollar.format(
-              project.adjusted_labor_expense
-            )}`}</TableCell>
-            <TableCell>{`${USDollar.format(
-              project.actual_labor_expense
-            )}`}</TableCell>
-            <TableCell>
-              {!project.adjusted_labor_expense
-                ? `${USDollar.format(
-                    project.budgeted_labor_expense -
-                      project.actual_labor_expense
-                  )}`
-                : `${USDollar.format(
-                    project.adjusted_labor_expense -
-                      project.actual_labor_expense
-                  )}`}
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Material Expense:</TableCell>
-            <TableCell>{`${USDollar.format(
-              project.budgeted_material_expense
-            )}`}</TableCell>
-            <TableCell>{`${USDollar.format(
-              project.adjusted_material_expense
-            )}`}</TableCell>
-            <TableCell>{`${USDollar.format(
-              project.actual_material_expense
-            )}`}</TableCell>
-            <TableCell>
-              {!project.adjusted_material_expense
-                ? `${USDollar.format(
-                    project.budgeted_material_expense -
-                      project.actual_material_expense
-                  )}`
-                : `${USDollar.format(
-                    project.adjusted_material_expense -
-                      project.actual_material_expense
-                  )}`}
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Subcontractor Expense:</TableCell>
-            <TableCell>{`${USDollar.format(
-              project.budgeted_subcontractor_expense
-            )}`}</TableCell>
-            <TableCell>{`${USDollar.format(
-              project.adjusted_subcontractor_expense
-            )}`}</TableCell>
-            <TableCell>{`${USDollar.format(
-              project.actual_subcontractor_expense
-            )}`}</TableCell>
-            <TableCell>
-              {!project.adjusted_subcontractor_expense
-                ? `${USDollar.format(
-                    project.budgeted_subcontractor_expense -
-                      project.actual_subcontractor_expense
-                  )}`
-                : `${USDollar.format(
-                    project.adjusted_subcontractor_expense -
-                      project.actual_subcontractor_expense
-                  )}`}
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>Miscellaneous Expense:</TableCell>
-            <TableCell>{`${USDollar.format(
-              project.budgeted_miscellaneous_expense
-            )}`}</TableCell>
-            <TableCell>{`${USDollar.format(
-              project.adjusted_miscellaneous_expense
-            )}`}</TableCell>
-            <TableCell>{`${USDollar.format(
-              project.actual_miscellaneous_expense
-            )}`}</TableCell>
-            <TableCell>
-              {!project.adjusted_miscellaneous_expense
-                ? `${USDollar.format(
-                    project.budgeted_miscellaneous_expense -
-                      project.actual_miscellaneous_expense
-                  )}`
-                : `${USDollar.format(
-                    project.adjusted_miscellaneous_expense -
-                      project.actual_miscellaneous_expense
-                  )}`}
-            </TableCell>
-          </TableRow>
+          <TableBody>
+            <TableRow>
+              <TableCell>Revenue</TableCell>
+              <TableCell>
+                {`${USDollar.format(project.original_revenue)}`}
+              </TableCell>
+              <TableCell>
+                {`${USDollar.format(project.adjusted_revenue)}`}
+              </TableCell>
+              <TableCell>
+                {!project.adjusted_revenue
+                  ? `${USDollar.format(project.original_revenue)}`
+                  : `${USDollar.format(project.adjusted_revenue)}`}
+              </TableCell>
+              <TableCell>
+                {!project.adjusted_revenue
+                  ? `${USDollar.format(
+                      project.original_revenue - project.original_revenue
+                    )}`
+                  : `${USDollar.format(
+                      project.adjusted_revenue - project.original_revenue
+                    )}`}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Labor Expense:</TableCell>
+              <TableCell>{`${USDollar.format(
+                project.budgeted_labor_expense
+              )}`}</TableCell>
+              <TableCell>{`${USDollar.format(
+                project.adjusted_labor_expense
+              )}`}</TableCell>
+              <TableCell>{`${USDollar.format(
+                project.actual_labor_expense
+              )}`}</TableCell>
+              <TableCell>
+                {!project.adjusted_labor_expense
+                  ? `${USDollar.format(
+                      project.budgeted_labor_expense -
+                        project.actual_labor_expense
+                    )}`
+                  : `${USDollar.format(
+                      project.adjusted_labor_expense -
+                        project.actual_labor_expense
+                    )}`}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Material Expense:</TableCell>
+              <TableCell>{`${USDollar.format(
+                project.budgeted_material_expense
+              )}`}</TableCell>
+              <TableCell>{`${USDollar.format(
+                project.adjusted_material_expense
+              )}`}</TableCell>
+              <TableCell>{`${USDollar.format(
+                project.actual_material_expense
+              )}`}</TableCell>
+              <TableCell>
+                {!project.adjusted_material_expense
+                  ? `${USDollar.format(
+                      project.budgeted_material_expense -
+                        project.actual_material_expense
+                    )}`
+                  : `${USDollar.format(
+                      project.adjusted_material_expense -
+                        project.actual_material_expense
+                    )}`}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Subcontractor Expense:</TableCell>
+              <TableCell>{`${USDollar.format(
+                project.budgeted_subcontractor_expense
+              )}`}</TableCell>
+              <TableCell>{`${USDollar.format(
+                project.adjusted_subcontractor_expense
+              )}`}</TableCell>
+              <TableCell>{`${USDollar.format(
+                project.actual_subcontractor_expense
+              )}`}</TableCell>
+              <TableCell>
+                {!project.adjusted_subcontractor_expense
+                  ? `${USDollar.format(
+                      project.budgeted_subcontractor_expense -
+                        project.actual_subcontractor_expense
+                    )}`
+                  : `${USDollar.format(
+                      project.adjusted_subcontractor_expense -
+                        project.actual_subcontractor_expense
+                    )}`}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>Miscellaneous Expense:</TableCell>
+              <TableCell>{`${USDollar.format(
+                project.budgeted_miscellaneous_expense
+              )}`}</TableCell>
+              <TableCell>{`${USDollar.format(
+                project.adjusted_miscellaneous_expense
+              )}`}</TableCell>
+              <TableCell>{`${USDollar.format(
+                project.actual_miscellaneous_expense
+              )}`}</TableCell>
+              <TableCell>
+                {!project.adjusted_miscellaneous_expense
+                  ? `${USDollar.format(
+                      project.budgeted_miscellaneous_expense -
+                        project.actual_miscellaneous_expense
+                    )}`
+                  : `${USDollar.format(
+                      project.adjusted_miscellaneous_expense -
+                        project.actual_miscellaneous_expense
+                    )}`}
+              </TableCell>
+            </TableRow>
+          </TableBody>
         </Table>
       </Container>
       <Stack

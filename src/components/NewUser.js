@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Dropdown from '../containers/Dropdown';
 
@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 
 const NewUser = (props) => {
-  // console.log(props);
+  console.log(props);
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(true);
@@ -54,16 +54,16 @@ const NewUser = (props) => {
   };
 
   const handleSubmit = (e) => {
-    console.log(props.selection.pop());
-    console.log(props.organizations[0]);
+    // console.log(props.selection.pop());
+    // console.log(props.organizations[0]);
     const orgID = props.organizations[0].find(
-      (org) => org.company_name === `Total Security Solutions`
+      (org) => org.company_name === props.selection[0]
     ).id;
     console.log(orgID);
     e.preventDefault();
 
-    axios.post('https://pm-cinch-backend.vercel.app/user', {
-      organizationId: user.organizationId,
+    axios.post('https://pm-cinch-backend.vercel.app/signup', {
+      organizationId: orgID,
       firstName: user.first_name,
       lastName: user.last_name,
       position: user.position,

@@ -29,7 +29,7 @@ const organizations = (state = [], action) => {
 const selection = (state = [], action) => {
   switch (action.type) {
     case 'ADD_SELECTION':
-      return [...state, action.value];
+      return [action.value];
     default:
       return state;
   }

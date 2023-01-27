@@ -9,6 +9,7 @@ import NewOrganization from './containers/NewOrganization';
 import NewProject from './containers/NewProject';
 import ProjectDetails from './containers/ProjectDetails';
 import UpdateProject from './containers/UpdateProject';
+import NewExpense from './containers/NewExpense';
 
 //Todo: Write checkAuth function here
 //Todo: Check the cookies for a cookie called "loggedIn"
@@ -57,7 +58,10 @@ const Router = () => {
         path='/newProject'
         element={<ProtectedRoute component={NewProject} />}
       />
-      {/* <Route path='/map' element={<Map />} /> */}
+      <Route
+        path='/newExpense'
+        element={<ProtectedRoute component={NewExpense} />}
+      />
     </Routes>
   );
 };
