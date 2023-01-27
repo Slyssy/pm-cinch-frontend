@@ -320,8 +320,9 @@ const ProjectDetails = (props) => {
         spacing={8}
         marginTop='4em'
       >
-        <Button variant='contained'>Update Project</Button>
-
+        <Link to={`/projects/update/${project.id}`}>
+          <Button variant='contained'>Update Project</Button>
+        </Link>
         <Button variant='contained' color='error' onClick={handleDelete}>
           Delete Project
         </Button>

@@ -8,6 +8,7 @@ import NewUser from './containers/NewUser';
 import NewOrganization from './containers/NewOrganization';
 import NewProject from './containers/NewProject';
 import ProjectDetails from './containers/ProjectDetails';
+import UpdateProject from './containers/UpdateProject';
 
 //Todo: Write checkAuth function here
 //Todo: Check the cookies for a cookie called "loggedIn"
@@ -39,8 +40,15 @@ const Router = () => {
       <Route path='/' element={<ProtectedRoute component={Dashboard} />} />
       <Route path='/login' element={<Login />} />
       {/* <Route path='/listings' element={<Listings />} /> */}
-      <Route path='/projects/:id' element={<ProjectDetails />} />
-      <Route path='/newUser' element={<ProtectedRoute component={NewUser} />} />
+      <Route
+        path='/projects/:id'
+        element={<ProtectedRoute component={ProjectDetails} />}
+      />
+      <Route
+        path='/projects/update/:id'
+        element={<ProtectedRoute component={UpdateProject} />}
+      />
+      <Route path='/newUser' element={<NewUser />} />
       <Route
         path='/newOrganization'
         element={<ProtectedRoute component={NewOrganization} />}

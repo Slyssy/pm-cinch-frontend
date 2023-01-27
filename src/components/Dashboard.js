@@ -150,8 +150,9 @@ const Dashboard = (props) => {
                       100}
                 </TableCell>
                 <TableCell>
-                  {`${new Date(project.estimated_start_date).getMonth() + 1}
-                  /${new Date(
+                  {`${
+                    new Date(project.estimated_start_date).getMonth() + 1
+                  }/${new Date(
                     project.estimated_start_date
                   ).getDate()}/${new Date(
                     project.estimated_start_date
@@ -159,10 +160,9 @@ const Dashboard = (props) => {
                 </TableCell>
                 <TableCell>{`${
                   new Date(project.estimated_complete_date).getMonth() + 1
-                }
-                  /${new Date(
-                    project.estimated_complete_date
-                  ).getDate()}/${new Date(
+                }/${new Date(
+                  project.estimated_complete_date
+                ).getDate()}/${new Date(
                   project.estimated_complete_date
                 ).getFullYear()}`}</TableCell>
               </TableRow>
