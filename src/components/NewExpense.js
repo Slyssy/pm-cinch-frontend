@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 // import Dropdown from '../containers/Dropdown';
 
 import {
@@ -27,6 +29,8 @@ const NewExpense = (props) => {
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(true);
+
+  const [expenseDate, setExpenseDate] = useState(null);
 
   const [expense, setExpense] = useState({
     projectID: '',
@@ -61,17 +65,15 @@ const NewExpense = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('projectId: ', currentProject.id);
-    console.log('expenseDate: ', expense.expenseDate);
-    console.log('expenseType: ', expense.expenseType);
-    console.log('vendorName: ', expense.vendorName);
-    console.log('expenseAmount: ', expense.expenseAmount);
-    console.log(props.token[0]);
+
+    const formattedExpenseDate = `${new Date(expenseDate).getFullYear()}-${
+      new Date(expenseDate).getMonth() + 1
+    }-${new Date(expenseDate).getDate()}`;
     axios.post(
       'https://pm-cinch-backend.vercel.app/expense',
       {
         projectID: currentProject.id,
-        expenseDate: expense.expenseDate,
+        expenseDate: formattedExpenseDate,
         expenseType: expense.expenseType,
         vendorName: expense.vendorName,
         expenseAmount: expense.expenseAmount,
@@ -102,7 +104,21 @@ const NewExpense = (props) => {
               alignItems: 'center',
             }}
           >
-            <Box sx={{ width: '80%' }}>
+            <Box
+              sx={{
+                display: 'flex',
+                marginTop: '1em',
+                gap: '1em',
+                width: '80%',
+              }}
+            >
+              <label className='expense-date-label'>Expense Date:</label>
+              <DatePicker
+                selected={expenseDate}
+                onSelect={(date) => setExpenseDate(date)}
+              />
+            </Box>
+            {/* <Box sx={{ width: '80%' }}>
               <TextField
                 value={expense.expenseDate}
                 name='expenseDate'
@@ -114,7 +130,7 @@ const NewExpense = (props) => {
                 variant='standard'
                 onChange={handleTextChange}
               />
-            </Box>
+            </Box> */}
             <Box sx={{ width: '80%' }}>
               <TextField
                 value={expense.expenseType}
