@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 
 const Dashboard = (props) => {
-  // console.log(props);
+  console.log(props);
   const [projects, setProjects] = useState([]);
 
   let USDollar = new Intl.NumberFormat('en-US', {
@@ -26,8 +26,9 @@ const Dashboard = (props) => {
     return array.reduce((acc, cur) => +acc + +cur, 0);
   };
 
+  const bearToken = props.token[0];
+
   useEffect(() => {
-    const bearToken = props.token[0];
     axios
       .get('https://pm-cinch-backend.vercel.app/projects', {
         headers: {
@@ -46,6 +47,21 @@ const Dashboard = (props) => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.token[0]]);
+
+  // const handleClick = (id) => {
+  //   axios
+  //     .get(`https://pm-cinch-backend.vercel.app/expense/${id}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${bearToken}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       // console.log(response.data.rows);
+  //       // setExpenses(response.data.rows);
+  //       const payload = response.data.rows;
+  //       props.addExpenses(payload);
+  //     });
+  // };
   return (
     <Container>
       <Table>

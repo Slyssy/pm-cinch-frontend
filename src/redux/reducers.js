@@ -68,8 +68,12 @@ const ecd = (state = [], action) => {
 
 const expenses = (state = [], action) => {
   switch (action.type) {
+    case 'ADD_EXPENSES':
+      return [action.value];
     case 'GET_EXPENSES':
       return [action.value];
+    case 'DELETE_EXPENSE':
+      return [...state];
     default:
       return state;
   }

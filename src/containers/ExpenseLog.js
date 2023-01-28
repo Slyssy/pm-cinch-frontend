@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import ExpenseLog from '../components/ExpenseLog';
-// import { deleteProject, getCoordinates } from '../redux/actions';
+import { deleteExpense } from '../redux/actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -13,6 +13,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    deleteExpense: (token, id) => dispatch(deleteExpense(token, id)),
+  };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ExpenseLog);

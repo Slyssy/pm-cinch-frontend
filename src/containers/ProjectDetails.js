@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import ProjectDetails from '../components/ProjectDetails';
-import { deleteProject, getCoordinates, getExpenses } from '../redux/actions';
+import { addExpenses, deleteProject, getCoordinates, getExpenses } from '../redux/actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -15,6 +15,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    
     getCoordinates: (address) => dispatch(getCoordinates(address)),
     deleteProject: (token, id) => dispatch(deleteProject(token, id)),
     getExpenses: (token, id) => dispatch(getExpenses(token, id)),

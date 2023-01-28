@@ -32,7 +32,7 @@ const ProjectDetails = (props) => {
   const { id } = useParams();
   // console.log(id);
   const project = props.projects.rows.find((project) => project.id === +id);
-  // console.log(project);
+  console.log(project);
 
   const address = `${project.street_1}, ${project.city}, ${project.state} ${project.zip}`;
 

@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import React from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import {
   Box,
-  TextField,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
+  // TextField,
+  // Button,
+  // Dialog,
+  // DialogActions,
+  // DialogContent,
+  // DialogContentText,
+  // DialogTitle,
   Container,
   Table,
   TableBody,
@@ -19,6 +20,7 @@ import {
 
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const ExpenseLog = (props) => {
   console.log(props);
@@ -33,18 +35,20 @@ const ExpenseLog = (props) => {
   );
   console.log(currentProject);
 
-  const [open, setOpen] = useState(true);
+  // const [open, setOpen] = useState(true);
 
-  const checkOpen = () => {
-    // console.log('CheckOpen has been called.');
-    // console.log(open);
-    return open === true ? navigate(`/projects/${currentProject.id}`) : null;
-  };
+  // const checkOpen = () => {
+  //   // console.log('CheckOpen has been called.');
+  //   // console.log(open);
+  //   return open === true ? navigate(`/projects/${currentProject.id}`) : null;
+  // };
 
-  const handleClose = () => {
-    setOpen(false);
-    checkOpen();
-  };
+  // const handleClose = () => {
+  //   setOpen(false);
+  //   checkOpen();
+  // };
+
+  const token = props.token[0];
 
   //% Organizing Data for tables below.
   const laborExpenses = props.expenses[0].filter(
@@ -113,6 +117,7 @@ const ExpenseLog = (props) => {
                 <StyledTableCell>Expense Type</StyledTableCell>
                 <StyledTableCell>Vendor/Payee</StyledTableCell>
                 <StyledTableCell>Expense Amount</StyledTableCell>
+                <StyledTableCell></StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -131,6 +136,24 @@ const ExpenseLog = (props) => {
                     <TableCell>
                       {USDollar.format(expense.expense_amount)}
                     </TableCell>
+                    <TableCell>
+                      <DeleteIcon
+                        onClick={() => {
+                          axios
+                            .delete(
+                              `https://pm-cinch-backend.vercel.app/expense/${expense.id}`,
+                              {
+                                headers: {
+                                  Authorization: `Bearer ${token}`,
+                                },
+                              }
+                            )
+                            .then(() => {
+                              navigate(`/projects/${currentProject.id}`);
+                            });
+                        }}
+                      />
+                    </TableCell>
                   </TableRow>
                 );
               })}
@@ -147,6 +170,7 @@ const ExpenseLog = (props) => {
                       .reduce((acc, cur) => acc + cur, 0)
                   )}
                 </StyledTableCell>
+                <StyledTableCell></StyledTableCell>
               </TableRow>
             </TableHead>
           </Table>
@@ -169,6 +193,7 @@ const ExpenseLog = (props) => {
                 <StyledTableCell>Expense Type</StyledTableCell>
                 <StyledTableCell>Vendor/Payee</StyledTableCell>
                 <StyledTableCell>Expense Amount</StyledTableCell>
+                <StyledTableCell></StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -187,6 +212,25 @@ const ExpenseLog = (props) => {
                     <TableCell>
                       {USDollar.format(expense.expense_amount)}
                     </TableCell>
+                    <TableCell>
+                      <DeleteIcon
+                        onClick={() => {
+                          console.log('Delete Me.');
+                          axios
+                            .delete(
+                              `https://pm-cinch-backend.vercel.app/expense/${expense.id}`,
+                              {
+                                headers: {
+                                  Authorization: `Bearer ${token}`,
+                                },
+                              }
+                            )
+                            .then(() => {
+                              navigate(`/projects/${currentProject.id}`);
+                            });
+                        }}
+                      />
+                    </TableCell>
                   </TableRow>
                 );
               })}
@@ -203,6 +247,7 @@ const ExpenseLog = (props) => {
                       .reduce((acc, cur) => acc + cur, 0)
                   )}
                 </StyledTableCell>
+                <StyledTableCell></StyledTableCell>
               </TableRow>
             </TableHead>
           </Table>
@@ -225,6 +270,7 @@ const ExpenseLog = (props) => {
                 <StyledTableCell>Expense Type</StyledTableCell>
                 <StyledTableCell>Vendor/Payee</StyledTableCell>
                 <StyledTableCell>Expense Amount</StyledTableCell>
+                <StyledTableCell></StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -243,6 +289,24 @@ const ExpenseLog = (props) => {
                     <TableCell>
                       {USDollar.format(expense.expense_amount)}
                     </TableCell>
+                    <TableCell>
+                      <DeleteIcon
+                        onClick={() => {
+                          axios
+                            .delete(
+                              `https://pm-cinch-backend.vercel.app/expense/${expense.id}`,
+                              {
+                                headers: {
+                                  Authorization: `Bearer ${token}`,
+                                },
+                              }
+                            )
+                            .then(() => {
+                              navigate(`/projects/${currentProject.id}`);
+                            });
+                        }}
+                      />
+                    </TableCell>
                   </TableRow>
                 );
               })}
@@ -259,6 +323,7 @@ const ExpenseLog = (props) => {
                       .reduce((acc, cur) => acc + cur, 0)
                   )}
                 </StyledTableCell>
+                <StyledTableCell></StyledTableCell>
               </TableRow>
             </TableHead>
           </Table>
@@ -281,6 +346,7 @@ const ExpenseLog = (props) => {
                 <StyledTableCell>Expense Type</StyledTableCell>
                 <StyledTableCell>Vendor/Payee</StyledTableCell>
                 <StyledTableCell>Expense Amount</StyledTableCell>
+                <StyledTableCell></StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -299,6 +365,24 @@ const ExpenseLog = (props) => {
                     <TableCell>
                       {USDollar.format(expense.expense_amount)}
                     </TableCell>
+                    <TableCell>
+                      <DeleteIcon
+                        onClick={() => {
+                          axios
+                            .delete(
+                              `https://pm-cinch-backend.vercel.app/expense/${expense.id}`,
+                              {
+                                headers: {
+                                  Authorization: `Bearer ${token}`,
+                                },
+                              }
+                            )
+                            .then(() => {
+                              navigate(`/projects/${currentProject.id}`);
+                            });
+                        }}
+                      />
+                    </TableCell>
                   </TableRow>
                 );
               })}
@@ -315,6 +399,7 @@ const ExpenseLog = (props) => {
                       .reduce((acc, cur) => acc + cur, 0)
                   )}
                 </StyledTableCell>
+                <StyledTableCell></StyledTableCell>
               </TableRow>
             </TableHead>
           </Table>
