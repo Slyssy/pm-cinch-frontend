@@ -7,6 +7,7 @@ const state = {
   esd: [],
   ecd: [],
   coordinates: [],
+  expenses: [],
 };
 
 export default state;

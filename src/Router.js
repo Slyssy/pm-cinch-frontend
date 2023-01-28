@@ -59,7 +59,7 @@ const Router = () => {
         element={<ProtectedRoute component={NewProject} />}
       />
       <Route
-        path='/newExpense'
+        path='/projects/expense/:id'
         element={<ProtectedRoute component={NewExpense} />}
       />
     </Routes>
