@@ -23,6 +23,13 @@ export const addOrgs = (org) => {
   };
 };
 
+export const addExpenses = (expenses) => {
+  return {
+    type: 'ADD_EXPENSES',
+    value: expenses,
+  };
+};
+
 export const selectDropdown = (selection) => {
   return {
     type: 'ADD_SELECTION',
@@ -171,6 +178,24 @@ export const getExpenses = (token, id) => {
       .then((response) => {
         const action = {
           type: 'GET_EXPENSES',
+          value: response.data,
+        };
+        dispatch(action);
+      });
+  };
+};
+
+export const deleteExpense = (token, id) => {
+  return (dispatch) => {
+    axios
+      .delete(`https://pm-cinch-backend.vercel.app/expense/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const action = {
+          type: 'DELETE_EXPENSE',
           value: response.data,
         };
         dispatch(action);

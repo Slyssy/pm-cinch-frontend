@@ -32,7 +32,7 @@ const ProjectDetails = (props) => {
   const { id } = useParams();
   // console.log(id);
   const project = props.projects.rows.find((project) => project.id === +id);
-  // console.log(project);
+  console.log(project);
 
   const address = `${project.street_1}, ${project.city}, ${project.state} ${project.zip}`;
 
@@ -391,6 +391,17 @@ const ProjectDetails = (props) => {
         <Link to={`/projects/update/${project.id}`}>
           <Button variant='contained'>Update Project</Button>
         </Link>
+        <Link to={`/projects/expenseLog/${project.id}`}>
+          <Button variant='contained'>View Expenses</Button>
+        </Link>
+      </Stack>
+      <Stack
+        direction='row'
+        justifyContent='center'
+        alignItems='center'
+        spacing={8}
+        marginTop='4em'
+      >
         <Button variant='contained' color='error' onClick={handleDelete}>
           Delete Project
         </Button>

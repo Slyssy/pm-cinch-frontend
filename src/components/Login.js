@@ -44,13 +44,13 @@ const Login = (props) => {
         password: user.password,
       })
       .then((response) => {
-        console.log(user.email);
-        console.log(user.password);
+        // console.log(user.email);
+        // console.log(user.password);
         //? Setting token using props from app.js
-        console.log(response.data.token);
+        // console.log(response.data.token);
         const payload = response.data.token;
         const userInfo = response.data;
-        console.log(userInfo);
+        // console.log(userInfo);
         props.addToken(payload);
         props.addUser(user.info);
         // # If successful...

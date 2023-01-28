@@ -10,6 +10,7 @@ import NewProject from './containers/NewProject';
 import ProjectDetails from './containers/ProjectDetails';
 import UpdateProject from './containers/UpdateProject';
 import NewExpense from './containers/NewExpense';
+import ExpenseLog from './containers/ExpenseLog';
 
 //Todo: Write checkAuth function here
 //Todo: Check the cookies for a cookie called "loggedIn"
@@ -61,6 +62,10 @@ const Router = () => {
       <Route
         path='/projects/expense/:id'
         element={<ProtectedRoute component={NewExpense} />}
+      />
+      <Route
+        path='/projects/expenseLog/:id'
+        element={<ProtectedRoute component={ExpenseLog} />}
       />
     </Routes>
   );

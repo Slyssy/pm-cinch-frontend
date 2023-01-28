@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 
 const NewOrganization = (props) => {
-  console.log(props);
+  // console.log(props);
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(true);
