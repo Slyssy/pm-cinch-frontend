@@ -31,8 +31,8 @@ const ProjectDetails = (props) => {
 
   const { id } = useParams();
   // console.log(id);
+
   const project = props.projects.rows.find((project) => project.id === +id);
-  console.log(project);
 
   const address = `${project.street_1}, ${project.city}, ${project.state} ${project.zip}`;
 
@@ -301,11 +301,11 @@ const ProjectDetails = (props) => {
                 {!project.adjusted_labor_expense
                   ? `${USDollar.format(
                       project.budgeted_labor_expense -
-                        project.actual_labor_expense
+                        expenseTotal(laborExpenses)
                     )}`
                   : `${USDollar.format(
                       project.adjusted_labor_expense -
-                        project.actual_labor_expense
+                        expenseTotal(laborExpenses)
                     )}`}
               </TableCell>
             </TableRow>
@@ -324,11 +324,11 @@ const ProjectDetails = (props) => {
                 {!project.adjusted_material_expense
                   ? `${USDollar.format(
                       project.budgeted_material_expense -
-                        project.actual_material_expense
+                        expenseTotal(materialExpenses)
                     )}`
                   : `${USDollar.format(
                       project.adjusted_material_expense -
-                        project.actual_material_expense
+                        expenseTotal(materialExpenses)
                     )}`}
               </TableCell>
             </TableRow>
@@ -347,11 +347,11 @@ const ProjectDetails = (props) => {
                 {!project.adjusted_subcontractor_expense
                   ? `${USDollar.format(
                       project.budgeted_subcontractor_expense -
-                        project.actual_subcontractor_expense
+                        expenseTotal(subcontractorExpenses)
                     )}`
                   : `${USDollar.format(
                       project.adjusted_subcontractor_expense -
-                        project.actual_subcontractor_expense
+                        expenseTotal(subcontractorExpenses)
                     )}`}
               </TableCell>
             </TableRow>
@@ -370,11 +370,11 @@ const ProjectDetails = (props) => {
                 {!project.adjusted_miscellaneous_expense
                   ? `${USDollar.format(
                       project.budgeted_miscellaneous_expense -
-                        project.actual_miscellaneous_expense
+                        expenseTotal(miscellaneousExpenses)
                     )}`
                   : `${USDollar.format(
                       project.adjusted_miscellaneous_expense -
-                        project.actual_miscellaneous_expense
+                        expenseTotal(miscellaneousExpenses)
                     )}`}
               </TableCell>
             </TableRow>
