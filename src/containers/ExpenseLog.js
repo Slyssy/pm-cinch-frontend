@@ -8,7 +8,7 @@ const mapStateToProps = (state) => {
     projects: state.projects,
     user: state.user,
     token: state.token,
-    selection: state.selection,
+    expenses: state.expenses,
   };
 };
 
