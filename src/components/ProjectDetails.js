@@ -32,18 +32,21 @@ const ProjectDetails = (props) => {
   const { id } = useParams();
   // console.log(id);
   const project = props.projects.rows.find((project) => project.id === +id);
-  console.log(project);
+  // console.log(project);
 
   const address = `${project.street_1}, ${project.city}, ${project.state} ${project.zip}`;
 
   const [asd, setAsd] = useState(null);
   const [acd, setAcd] = useState(null);
+  const [expenses, setExpenses] = useState([]);
+
+  const token = props.token[0];
 
   const handleDelete = () => {
     axios
       .delete(`https://pm-cinch-backend.vercel.app/projects/${project.id}`, {
         headers: {
-          Authorization: `Bearer ${props.token[0]}`,
+          Authorization: `Bearer ${token}`,
         },
       })
       .then(() => {
@@ -52,9 +55,34 @@ const ProjectDetails = (props) => {
   };
   useEffect(() => {
     props.getCoordinates(address);
-    // console.log(props.getCoordinates(listing.address));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    props.getExpenses(token, project.id);
+    // eslint-disable-next-line
+  }, [token]);
+
+  const expenseTotal = (expenses) => {
+    const totalExpense = expenses
+      .map((project) => +project.expense_amount)
+      .reduce((acc, cur) => acc + cur, 0);
+    console.log(totalExpense);
+    return totalExpense;
+  };
+
+  const laborExpenses = props.expenses[0].filter(
+    (expense) => expense.expense_type === 'Labor'
+  );
+  console.log(laborExpenses);
+  const materialExpenses = props.expenses[0].filter(
+    (expense) => expense.expense_type === 'Material'
+  );
+  console.log(materialExpenses);
+  const subcontractorExpenses = props.expenses[0].filter(
+    (expense) => expense.expense_type === 'Subcontractor'
+  );
+  console.log(subcontractorExpenses);
+  const miscellaneousExpenses = props.expenses[0].filter(
+    (expense) => expense.expense_type === 'Miscellaneous'
+  );
+  console.log(miscellaneousExpenses);
 
   return (
     <Box>
@@ -183,7 +211,7 @@ const ProjectDetails = (props) => {
             spacing={2}
             marginTop='2em'
           >
-            <Link to={`/newExpense`}>
+            <Link to={`/projects/expense/${project.id}`}>
               <Button variant='outlined'>+ New Expense</Button>
             </Link>
             <Button variant='outlined' disabled>
@@ -254,7 +282,7 @@ const ProjectDetails = (props) => {
                 project.adjusted_labor_expense
               )}`}</TableCell>
               <TableCell>{`${USDollar.format(
-                project.actual_labor_expense
+                expenseTotal(laborExpenses)
               )}`}</TableCell>
               <TableCell>
                 {!project.adjusted_labor_expense
@@ -277,7 +305,7 @@ const ProjectDetails = (props) => {
                 project.adjusted_material_expense
               )}`}</TableCell>
               <TableCell>{`${USDollar.format(
-                project.actual_material_expense
+                expenseTotal(materialExpenses)
               )}`}</TableCell>
               <TableCell>
                 {!project.adjusted_material_expense
@@ -300,7 +328,7 @@ const ProjectDetails = (props) => {
                 project.adjusted_subcontractor_expense
               )}`}</TableCell>
               <TableCell>{`${USDollar.format(
-                project.actual_subcontractor_expense
+                expenseTotal(subcontractorExpenses)
               )}`}</TableCell>
               <TableCell>
                 {!project.adjusted_subcontractor_expense
@@ -323,7 +351,7 @@ const ProjectDetails = (props) => {
                 project.adjusted_miscellaneous_expense
               )}`}</TableCell>
               <TableCell>{`${USDollar.format(
-                project.actual_miscellaneous_expense
+                expenseTotal(miscellaneousExpenses)
               )}`}</TableCell>
               <TableCell>
                 {!project.adjusted_miscellaneous_expense

@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 
 const Login = (props) => {
-  console.log(props);
+  // console.log(props);
   const navigate = useNavigate();
 
   const [user, setUser] = useState({
@@ -24,7 +24,7 @@ const Login = (props) => {
   const handleTextChange = (e) => {
     // console.log(e.target);
     const { name, value } = e.target;
-    console.log(name, value);
+    // console.log(name, value);
     setUser((prevState) => {
       return {
         ...prevState,

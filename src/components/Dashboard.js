@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 
 const Dashboard = (props) => {
-  console.log(props);
+  // console.log(props);
   const [projects, setProjects] = useState([]);
 
   let USDollar = new Intl.NumberFormat('en-US', {
@@ -36,7 +36,7 @@ const Dashboard = (props) => {
       })
       .then(
         (response) => {
-          console.log(response.data.rows);
+          // console.log(response.data.rows);
           setProjects(response.data.rows);
         },
         [props.token]

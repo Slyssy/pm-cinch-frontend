@@ -78,6 +78,7 @@ export const getProjects = (token) => {
       });
   };
 };
+
 export const deleteProject = (token, id) => {
   return (dispatch) => {
     console.log('deleteProject() called', id);
@@ -156,5 +157,23 @@ export const addECD = (ecd) => {
   return {
     type: 'ADD_ECD',
     value: ecd,
+  };
+};
+
+export const getExpenses = (token, id) => {
+  return (dispatch) => {
+    axios
+      .get(`https://pm-cinch-backend.vercel.app/expense/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const action = {
+          type: 'GET_EXPENSES',
+          value: response.data,
+        };
+        dispatch(action);
+      });
   };
 };

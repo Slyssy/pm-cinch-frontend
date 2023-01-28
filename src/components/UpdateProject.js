@@ -73,7 +73,7 @@ const UpdateProject = (props) => {
   const checkOpen = () => {
     // console.log('CheckOpen has been called.');
     // console.log(open);
-    return open === true ? navigate('/') : null;
+    return open === true ? navigate(`/projects/${currentProject.id}`) : null;
   };
 
   const handleClose = () => {

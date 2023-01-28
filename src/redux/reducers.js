@@ -66,6 +66,15 @@ const ecd = (state = [], action) => {
   }
 };
 
+const expenses = (state = [], action) => {
+  switch (action.type) {
+    case 'GET_EXPENSES':
+      return [action.value];
+    default:
+      return state;
+  }
+};
+
 const coordinates = (state = [], action) => {
   switch (action.type) {
     case 'GET_COORDINATES':
@@ -83,5 +92,6 @@ export default combineReducers({
   selection,
   esd,
   ecd,
+  expenses,
   coordinates,
 });
