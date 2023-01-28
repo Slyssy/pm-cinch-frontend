@@ -68,7 +68,10 @@ const Dashboard = (props) => {
             return (
               <TableRow key={`${project.id}__row`}>
                 <TableCell>
-                  <Link to={`/projects/${project.id}`}>
+                  <Link
+                    to={`/projects/${project.id}`}
+                    onClick={props.getExpenses(props.token[0], project.id)}
+                  >
                     {project.project_name}
                   </Link>
                 </TableCell>

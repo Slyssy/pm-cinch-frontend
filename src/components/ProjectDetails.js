@@ -55,9 +55,22 @@ const ProjectDetails = (props) => {
   };
   useEffect(() => {
     props.getCoordinates(address);
+    axios
+      .get(`https://pm-cinch-backend.vercel.app/expense/${project.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(
+        (response) => {
+          // console.log(response.data.rows);
+          setExpenses(response.data.rows);
+        },
+        [token]
+      );
     props.getExpenses(token, project.id);
     // eslint-disable-next-line
-  }, [token]);
+  }, []);
 
   const expenseTotal = (expenses) => {
     const totalExpense = expenses
