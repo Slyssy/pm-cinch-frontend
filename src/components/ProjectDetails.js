@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import MyMap from '../containers/Map';
 
@@ -35,10 +35,6 @@ const ProjectDetails = (props) => {
 
   props.getCurrentProject(project);
 
-  // const [asd, setAsd] = useState(null);
-  // const [acd, setAcd] = useState(null);
-  // const [expenses, setExpenses] = useState([]);
-
   const token = props.token[0];
 
   const handleDelete = () => {
@@ -55,9 +51,9 @@ const ProjectDetails = (props) => {
   useEffect(() => {
     const address = `${props.currentProject.street_1}, ${props.currentProject.city}, ${props.currentProject.state} ${props.currentProject.zip}`;
 
+    props.getChangeOrders(token, project.id);
     props.getProjects(token);
     props.getCurrentProject(project);
-    props.getChangeOrders(token, project.id);
     props.getCoordinates(address);
     props.getExpenses(token, project.id);
     // eslint-disable-next-line
@@ -101,10 +97,10 @@ const ProjectDetails = (props) => {
     return totalValue;
   };
 
-  console.log(
-    +props.currentProject.original_revenue +
-      sumArrayOfObjects(props.changeOrders, 'co_revenue')
-  );
+  // console.log(
+  //   +props.currentProject.original_revenue +
+  //     sumArrayOfObjects(props.changeOrders, 'co_revenue')
+  // );
   return (
     <Box>
       <Box
@@ -460,7 +456,10 @@ const ProjectDetails = (props) => {
           <Button variant='contained'>Update Project</Button>
         </Link>
         <Link to={`/projects/expenseLog/${project.id}`}>
-          <Button variant='contained'>View Expenses</Button>
+          <Button variant='contained'>Expense Log</Button>
+        </Link>
+        <Link to={`/projects/changeOrderLog/${project.id}`}>
+          <Button variant='contained'>Change Order Log</Button>
         </Link>
       </Stack>
       <Stack

@@ -7,6 +7,7 @@ import {
   getProjects,
   getExpenses,
   addExpenses,
+  getChangeOrders,
 } from '../redux/actions';
 
 const mapStateToProps = (state) => {
@@ -24,6 +25,7 @@ const mapDispatchToProps = (dispatch) => {
     getProjects: (token) => dispatch(getProjects(token)),
     getExpenses: (token, id) => dispatch(getExpenses(token, id)),
     addExpenses: (expenses) => dispatch(addExpenses(expenses)),
+    getChangeOrders: (token, id) => dispatch(getChangeOrders(token, id)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

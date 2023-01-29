@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Routes, Route, Navigate } from 'react-router';
 import cookie from 'cookie';
 // import AdminDashboard from './containers/AdminDashboard';
@@ -12,6 +12,7 @@ import UpdateProject from './containers/UpdateProject';
 import NewExpense from './containers/NewExpense';
 import ExpenseLog from './containers/ExpenseLog';
 import NewChangeOrder from './containers/NewChangeOrder';
+import ChangeOrderLog from './containers/ChangeOrderLog';
 
 //Todo: Write checkAuth function here
 //Todo: Check the cookies for a cookie called "loggedIn"
@@ -71,6 +72,10 @@ const Router = () => {
       <Route
         path='/projects/expenseLog/:id'
         element={<ProtectedRoute component={ExpenseLog} />}
+      />
+      <Route
+        path='/projects/changeOrderLog/:id'
+        element={<ProtectedRoute component={ChangeOrderLog} />}
       />
     </Routes>
   );
