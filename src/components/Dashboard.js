@@ -48,20 +48,11 @@ const Dashboard = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.token[0]]);
 
-  // const handleClick = (id) => {
-  //   axios
-  //     .get(`https://pm-cinch-backend.vercel.app/expense/${id}`, {
-  //       headers: {
-  //         Authorization: `Bearer ${bearToken}`,
-  //       },
-  //     })
-  //     .then((response) => {
-  //       // console.log(response.data.rows);
-  //       // setExpenses(response.data.rows);
-  //       const payload = response.data.rows;
-  //       props.addExpenses(payload);
-  //     });
-  // };
+  const handleClick = (project, item) => {
+    props.getExpenses(props.token[0], project[item]);
+    props.getChangeOrders(props.token[0], project[item]);
+  };
+
   return (
     <Container>
       <Table>
@@ -86,7 +77,7 @@ const Dashboard = (props) => {
                 <TableCell>
                   <Link
                     to={`/projects/${project.id}`}
-                    onClick={props.getExpenses(props.token[0], project.id)}
+                    onClick={handleClick(project, 'id')}
                   >
                     {project.project_name}
                   </Link>

@@ -55,9 +55,9 @@ const ProjectDetails = (props) => {
   useEffect(() => {
     const address = `${props.currentProject.street_1}, ${props.currentProject.city}, ${props.currentProject.state} ${props.currentProject.zip}`;
 
+    props.getChangeOrders(token, project.id);
     props.getProjects(token);
     props.getCurrentProject(project);
-    props.getChangeOrders(token, project.id);
     props.getCoordinates(address);
     props.getExpenses(token, project.id);
     // eslint-disable-next-line
@@ -101,10 +101,10 @@ const ProjectDetails = (props) => {
     return totalValue;
   };
 
-  console.log(
-    +props.currentProject.original_revenue +
-      sumArrayOfObjects(props.changeOrders, 'co_revenue')
-  );
+  // console.log(
+  //   +props.currentProject.original_revenue +
+  //     sumArrayOfObjects(props.changeOrders, 'co_revenue')
+  // );
   return (
     <Box>
       <Box

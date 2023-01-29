@@ -164,7 +164,7 @@ const NewExpense = (props) => {
                 label='Expense Amount:'
                 margin='dense'
                 id='expense-amount'
-                type='text'
+                type='float'
                 fullWidth
                 variant='standard'
                 onChange={handleTextChange}
@@ -174,7 +174,7 @@ const NewExpense = (props) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Link to='/newUser'>
+          <Link to={`/projects/${currentProject.id}`}>
             <Button onClick={handleSubmit}>Submit</Button>
           </Link>
         </DialogActions>
