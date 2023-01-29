@@ -8,6 +8,8 @@ const state = {
   ecd: [],
   coordinates: [],
   expenses: [],
+  currentProject: null,
+  changeOrders: null,
 };
 
 export default state;

@@ -11,6 +11,7 @@ import ProjectDetails from './containers/ProjectDetails';
 import UpdateProject from './containers/UpdateProject';
 import NewExpense from './containers/NewExpense';
 import ExpenseLog from './containers/ExpenseLog';
+import NewChangeOrder from './containers/NewChangeOrder';
 
 //Todo: Write checkAuth function here
 //Todo: Check the cookies for a cookie called "loggedIn"
@@ -49,6 +50,10 @@ const Router = () => {
       <Route
         path='/projects/update/:id'
         element={<ProtectedRoute component={UpdateProject} />}
+      />
+      <Route
+        path='/projects/co/:id'
+        element={<ProtectedRoute component={NewChangeOrder} />}
       />
       <Route path='/newUser' element={<NewUser />} />
       <Route

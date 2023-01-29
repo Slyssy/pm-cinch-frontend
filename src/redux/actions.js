@@ -30,10 +30,24 @@ export const addExpenses = (expenses) => {
   };
 };
 
+export const addChangeOrder = (expenses) => {
+  return {
+    type: 'ADD_CHANGE_ORDER',
+    value: expenses,
+  };
+};
+
 export const selectDropdown = (selection) => {
   return {
     type: 'ADD_SELECTION',
     value: selection,
+  };
+};
+
+export const getCurrentProject = (project) => {
+  return {
+    type: 'GET_CURRENT_PROJECT',
+    value: project,
   };
 };
 
@@ -105,54 +119,6 @@ export const deleteProject = (token, id) => {
   };
 };
 
-// export const addProject = (project, esd, ecd) => {
-//   return (dispatch) => {
-//     axios
-//       .post('https://pm-cinch-backend.vercel.app/projects', {
-//         projectName: project.projectName,
-//         street1: project.street1,
-//         street2: project.street2,
-//         city: project.city,
-//         state: project.state,
-//         zip: project.zip,
-//         projectStatus: project.projectStatus,
-//         projectMargin: project.projectMargin,
-//         originalRevenue: project.originalRevenue,
-//         adjustedRevenue: project.adjustedRevenue,
-//         budgetedMaterialExpense: project.budgetedMaterialExpense,
-//         budgetedLaborExpense: project.budgetedLaborExpense,
-//         budgetedSubcontractorExpense: project.budgetedSubcontractorExpense,
-//         budgetedMiscellaneousExpense: project.budgetedMiscellaneousExpense,
-//         adjustedMaterialExpense: project.adjustedMaterialExpense,
-//         adjustedLaborExpense: project.adjustedLaborExpense,
-//         adjustedSubcontractorExpense: project.adjustedSubcontractorExpense,
-//         adjustedMiscellaneousExpense: project.adjustedMiscellaneousExpense,
-//         actualMaterialExpense: project.actualMaterialExpense,
-//         actualLaborExpense: project.actualLaborExpense,
-//         actualSubcontractorExpense: project.actualSubcontractorExpense,
-//         actualMiscellaneousExpense: project.actualMiscellaneousExpense,
-//         // ESD: formatDate(esd),
-//         // ECD: formatDate(ecd),
-//         ASD: project.ASD,
-//         ACD: project.ACD,
-//       })
-//       .then((response) => {
-//         const action = {
-//           type: 'ADD_PROJECT',
-//           value: project,
-//         };
-//         dispatch(action);
-//       });
-//   };
-// };
-
-// export const deleteProject = (index) => {
-//   return {
-//     type: 'DELETE_PROJECT',
-//     value: index,
-//   };
-// };
-
 export const addESD = (esd) => {
   return {
     type: 'ADD_ESD',
@@ -185,6 +151,24 @@ export const getExpenses = (token, id) => {
   };
 };
 
+export const getChangeOrders = (token, id) => {
+  return (dispatch) => {
+    axios
+      .get(`https://pm-cinch-backend.vercel.app/changeOrder/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const action = {
+          type: 'GET_CHANGE_ORDER',
+          value: response.data,
+        };
+        dispatch(action);
+      });
+  };
+};
+
 export const deleteExpense = (token, id) => {
   return (dispatch) => {
     axios
@@ -196,6 +180,24 @@ export const deleteExpense = (token, id) => {
       .then((response) => {
         const action = {
           type: 'DELETE_EXPENSE',
+          value: response.data,
+        };
+        dispatch(action);
+      });
+  };
+};
+
+export const deleteChangeOrder = (token, id) => {
+  return (dispatch) => {
+    axios
+      .delete(`https://pm-cinch-backend.vercel.app/changeOrder/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        const action = {
+          type: 'DELETE_CHANGE_ORDER',
           value: response.data,
         };
         dispatch(action);

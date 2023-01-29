@@ -48,6 +48,15 @@ const projects = (state = [], action) => {
   }
 };
 
+const currentProject = (state = null, action) => {
+  switch (action.type) {
+    case 'GET_CURRENT_PROJECT':
+      return action.value;
+    default:
+      return state;
+  }
+};
+
 const esd = (state = [], action) => {
   switch (action.type) {
     case 'ADD_ESD':
@@ -79,6 +88,18 @@ const expenses = (state = [], action) => {
   }
 };
 
+const changeOrders = (state = null, action) => {
+  switch (action.type) {
+    case 'ADD_CHANGE_ORDER':
+      return [action.value];
+    case 'GET_CHANGE_ORDER':
+      return action.value;
+    case 'DELETE_EXPENSE':
+      return [...state];
+    default:
+      return state;
+  }
+};
 const coordinates = (state = [], action) => {
   switch (action.type) {
     case 'GET_COORDINATES':
@@ -98,4 +119,6 @@ export default combineReducers({
   ecd,
   expenses,
   coordinates,
+  currentProject,
+  changeOrders,
 });

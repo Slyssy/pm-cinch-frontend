@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link, useNavigate, Navigate } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import MyMap from '../containers/Map';
-import DatePicker from 'react-datepicker';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -34,11 +33,11 @@ const ProjectDetails = (props) => {
 
   const project = props.projects.rows.find((project) => project.id === +id);
 
-  const address = `${project.street_1}, ${project.city}, ${project.state} ${project.zip}`;
+  props.getCurrentProject(project);
 
-  const [asd, setAsd] = useState(null);
-  const [acd, setAcd] = useState(null);
-  const [expenses, setExpenses] = useState([]);
+  // const [asd, setAsd] = useState(null);
+  // const [acd, setAcd] = useState(null);
+  // const [expenses, setExpenses] = useState([]);
 
   const token = props.token[0];
 
@@ -54,49 +53,58 @@ const ProjectDetails = (props) => {
       });
   };
   useEffect(() => {
+    const address = `${props.currentProject.street_1}, ${props.currentProject.city}, ${props.currentProject.state} ${props.currentProject.zip}`;
+
+    props.getProjects(token);
+    props.getCurrentProject(project);
+    props.getChangeOrders(token, project.id);
     props.getCoordinates(address);
-    axios
-      .get(`https://pm-cinch-backend.vercel.app/expense/${project.id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(
-        (response) => {
-          // console.log(response.data.rows);
-          setExpenses(response.data.rows);
-        },
-        [token]
-      );
     props.getExpenses(token, project.id);
     // eslint-disable-next-line
   }, []);
 
+  //% Getting Expense Values .........................................
   const expenseTotal = (expenses) => {
     const totalExpense = expenses
       .map((project) => +project.expense_amount)
       .reduce((acc, cur) => acc + cur, 0);
-    console.log(totalExpense);
+    // console.log(totalExpense);
     return totalExpense;
   };
 
+  //? Getting all expenses where expense type is Labor
   const laborExpenses = props.expenses[0].filter(
     (expense) => expense.expense_type === 'Labor'
   );
   console.log(laborExpenses);
+  //? Getting all expenses where expense type is Material
   const materialExpenses = props.expenses[0].filter(
     (expense) => expense.expense_type === 'Material'
   );
-  console.log(materialExpenses);
+  // console.log(materialExpenses);
+  //? Getting all expenses where expense type is Subcontractor
   const subcontractorExpenses = props.expenses[0].filter(
     (expense) => expense.expense_type === 'Subcontractor'
   );
-  console.log(subcontractorExpenses);
+  // console.log(subcontractorExpenses);
+  //? Getting all expenses where expense type is Miscellaneous
   const miscellaneousExpenses = props.expenses[0].filter(
     (expense) => expense.expense_type === 'Miscellaneous'
   );
-  console.log(miscellaneousExpenses);
+  // console.log(miscellaneousExpenses);
+  //% Getting Change Order Values..........................................
+  const sumArrayOfObjects = (array, item) => {
+    const totalValue = array
+      .map((object) => +object[item])
+      .reduce((acc, cur) => acc + cur, 0);
+    // console.log(totalExpense);
+    return totalValue;
+  };
 
+  console.log(
+    +props.currentProject.original_revenue +
+      sumArrayOfObjects(props.changeOrders, 'co_revenue')
+  );
   return (
     <Box>
       <Box
@@ -121,7 +129,7 @@ const ProjectDetails = (props) => {
               marginTop: '1em',
             }}
           >
-            {project.project_name}
+            {props.currentProject.project_name}
           </Box>
           <Box
             sx={{
@@ -131,7 +139,7 @@ const ProjectDetails = (props) => {
               marginTop: '.5em',
             }}
           >
-            {project.street_1}
+            {props.currentProject.street_1}
           </Box>
           <Box
             sx={{
@@ -140,7 +148,7 @@ const ProjectDetails = (props) => {
               textAlign: 'center',
             }}
           >
-            {project.street_2}
+            {props.currentProject.street_2}
           </Box>
           <Box
             sx={{
@@ -149,7 +157,7 @@ const ProjectDetails = (props) => {
               textAlign: 'center',
             }}
           >
-            {`${project.city}, ${project.state} ${project.zip}`}
+            {`${props.currentProject.city}, ${props.currentProject.state} ${props.currentProject.zip}`}
           </Box>
           <Stack
             direction='row'
@@ -160,9 +168,12 @@ const ProjectDetails = (props) => {
           >
             <Chip
               label={`ESD: ${
-                new Date(project.estimated_start_date).getMonth() + 1
-              }/${new Date(project.estimated_start_date).getDate()}/${new Date(
-                project.estimated_start_date
+                new Date(props.currentProject.estimated_start_date).getMonth() +
+                1
+              }/${new Date(
+                props.currentProject.estimated_start_date
+              ).getDate()}/${new Date(
+                props.currentProject.estimated_start_date
               ).getFullYear()}`}
               color='success'
               variant='outlined'
@@ -170,28 +181,35 @@ const ProjectDetails = (props) => {
             <Chip
               label={
                 `ASD: ${
-                  new Date(project.actual_start_date).getMonth() + 1
-                }/${new Date(project.actual_start_date).getDate()}/${new Date(
-                  project.actual_start_date
+                  new Date(props.currentProject.actual_start_date).getMonth() +
+                  1
+                }/${new Date(
+                  props.currentProject.actual_start_date
+                ).getDate()}/${new Date(
+                  props.currentProject.actual_start_date
                 ).getFullYear()}` === `ASD: 12/31/1969`
                   ? 'ASD: TBD'
                   : `ASD: ${
-                      new Date(project.actual_start_date).getMonth() + 1
+                      new Date(
+                        props.currentProject.actual_start_date
+                      ).getMonth() + 1
                     }/${new Date(
-                      project.actual_start_date
+                      props.currentProject.actual_start_date
                     ).getDate()}/${new Date(
-                      project.actual_start_date
+                      props.currentProject.actual_start_date
                     ).getFullYear()}`
               }
               color='success'
             ></Chip>
             <Chip
               label={`ECD: ${
-                new Date(project.estimated_complete_date).getMonth() + 1
+                new Date(
+                  props.currentProject.estimated_complete_date
+                ).getMonth() + 1
               }/${new Date(
-                project.estimated_complete_date
+                props.currentProject.estimated_complete_date
               ).getDate()}/${new Date(
-                project.estimated_complete_date
+                props.currentProject.estimated_complete_date
               ).getFullYear()}`}
               color='success'
               variant='outlined'
@@ -199,19 +217,23 @@ const ProjectDetails = (props) => {
             <Chip
               label={
                 `ACD: ${
-                  new Date(project.actual_complete_date).getMonth() + 1
+                  new Date(
+                    props.currentProject.actual_complete_date
+                  ).getMonth() + 1
                 }/${new Date(
-                  project.actual_complete_date
+                  props.currentProject.actual_complete_date
                 ).getDate()}/${new Date(
-                  project.actual_complete_date
+                  props.currentProject.actual_complete_date
                 ).getFullYear()}` === `ACD: 12/31/1969`
                   ? 'ASD: TBD'
                   : `ASD: ${
-                      new Date(project.actual_complete_date).getMonth() + 1
+                      new Date(
+                        props.currentProject.actual_complete_date
+                      ).getMonth() + 1
                     }/${new Date(
-                      project.actual_complete_date
+                      props.currentProject.actual_complete_date
                     ).getDate()}/${new Date(
-                      project.actual_complete_date
+                      props.currentProject.actual_complete_date
                     ).getFullYear()}`
               }
               color='success'
@@ -230,7 +252,9 @@ const ProjectDetails = (props) => {
             <Button variant='outlined' disabled>
               + Time Entry
             </Button>
-            <Button variant='outlined'>+ Change Order</Button>
+            <Link to={`/projects/co/${project.id}`}>
+              <Button variant='outlined'>+ Change Order</Button>
+            </Link>
           </Stack>
         </Box>
         <Box sx={{ width: '50%', height: '30vh' }}>
@@ -266,45 +290,59 @@ const ProjectDetails = (props) => {
             <TableRow>
               <TableCell>Revenue</TableCell>
               <TableCell>
-                {`${USDollar.format(project.original_revenue)}`}
+                {`${USDollar.format(props.currentProject.original_revenue)}`}
               </TableCell>
               <TableCell>
-                {`${USDollar.format(project.adjusted_revenue)}`}
+                {`${USDollar.format(
+                  +props.currentProject.original_revenue +
+                    sumArrayOfObjects(props.changeOrders, 'co_revenue')
+                )}`}
               </TableCell>
               <TableCell>
-                {!project.adjusted_revenue
-                  ? `${USDollar.format(project.original_revenue)}`
-                  : `${USDollar.format(project.adjusted_revenue)}`}
-              </TableCell>
-              <TableCell>
-                {!project.adjusted_revenue
+                {sumArrayOfObjects(props.changeOrders, 'co_revenue') !== 0
                   ? `${USDollar.format(
-                      project.original_revenue - project.original_revenue
+                      +props.currentProject.original_revenue +
+                        sumArrayOfObjects(props.changeOrders, 'co_revenue')
+                    )}`
+                  : `${USDollar.format(props.currentProject.original_revenue)}`}
+              </TableCell>
+              <TableCell>
+                {sumArrayOfObjects(props.changeOrders, 'co_revenue') === 0
+                  ? `${USDollar.format(
+                      props.currentProject.original_revenue -
+                        props.currentProject.original_revenue
                     )}`
                   : `${USDollar.format(
-                      project.adjusted_revenue - project.original_revenue
+                      +props.currentProject.original_revenue +
+                        sumArrayOfObjects(props.changeOrders, 'co_revenue') -
+                        props.currentProject.original_revenue
                     )}`}
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>Labor Expense:</TableCell>
               <TableCell>{`${USDollar.format(
-                project.budgeted_labor_expense
+                props.currentProject.budgeted_labor_expense
               )}`}</TableCell>
               <TableCell>{`${USDollar.format(
-                project.adjusted_labor_expense
+                +props.currentProject.budgeted_labor_expense +
+                  sumArrayOfObjects(props.changeOrders, 'co_labor_expense')
               )}`}</TableCell>
               <TableCell>{`${USDollar.format(
                 expenseTotal(laborExpenses)
               )}`}</TableCell>
               <TableCell>
-                {!project.adjusted_labor_expense
+                {sumArrayOfObjects(props.changeOrders, 'co_labor_expense') === 0
                   ? `${USDollar.format(
-                      project.budgeted_labor_expense -
+                      props.currentProject.budgeted_labor_expense -
                         expenseTotal(laborExpenses)
                     )}`
                   : `${USDollar.format(
-                      project.adjusted_labor_expense -
+                      +props.currentProject.budgeted_labor_expense +
+                        sumArrayOfObjects(
+                          props.changeOrders,
+                          'co_labor_expense'
+                        ) -
                         expenseTotal(laborExpenses)
                     )}`}
               </TableCell>
@@ -312,22 +350,30 @@ const ProjectDetails = (props) => {
             <TableRow>
               <TableCell>Material Expense:</TableCell>
               <TableCell>{`${USDollar.format(
-                project.budgeted_material_expense
+                props.currentProject.budgeted_material_expense
               )}`}</TableCell>
               <TableCell>{`${USDollar.format(
-                project.adjusted_material_expense
+                +props.currentProject.budgeted_material_expense +
+                  sumArrayOfObjects(props.changeOrders, 'co_material_expense')
               )}`}</TableCell>
               <TableCell>{`${USDollar.format(
                 expenseTotal(materialExpenses)
               )}`}</TableCell>
               <TableCell>
-                {!project.adjusted_material_expense
+                {sumArrayOfObjects(
+                  props.changeOrders,
+                  'co_material_expense'
+                ) === 0
                   ? `${USDollar.format(
-                      project.budgeted_material_expense -
+                      props.currentProject.budgeted_material_expense -
                         expenseTotal(materialExpenses)
                     )}`
                   : `${USDollar.format(
-                      project.adjusted_material_expense -
+                      +props.currentProject.budgeted_material_expense +
+                        sumArrayOfObjects(
+                          props.changeOrders,
+                          'co_material_expense'
+                        ) -
                         expenseTotal(materialExpenses)
                     )}`}
               </TableCell>
@@ -335,22 +381,33 @@ const ProjectDetails = (props) => {
             <TableRow>
               <TableCell>Subcontractor Expense:</TableCell>
               <TableCell>{`${USDollar.format(
-                project.budgeted_subcontractor_expense
+                props.currentProject.budgeted_subcontractor_expense
               )}`}</TableCell>
               <TableCell>{`${USDollar.format(
-                project.adjusted_subcontractor_expense
+                +props.currentProject.budgeted_subcontractor_expense +
+                  sumArrayOfObjects(
+                    props.changeOrders,
+                    'co_subcontractor_expense'
+                  )
               )}`}</TableCell>
               <TableCell>{`${USDollar.format(
                 expenseTotal(subcontractorExpenses)
               )}`}</TableCell>
               <TableCell>
-                {!project.adjusted_subcontractor_expense
+                {sumArrayOfObjects(
+                  props.changeOrders,
+                  'co_subcontractor_expense'
+                ) === 0
                   ? `${USDollar.format(
-                      project.budgeted_subcontractor_expense -
+                      props.currentProject.budgeted_subcontractor_expense -
                         expenseTotal(subcontractorExpenses)
                     )}`
                   : `${USDollar.format(
-                      project.adjusted_subcontractor_expense -
+                      +props.currentProject.budgeted_subcontractor_expense +
+                        sumArrayOfObjects(
+                          props.changeOrders,
+                          'co_subcontractor_expense'
+                        ) -
                         expenseTotal(subcontractorExpenses)
                     )}`}
               </TableCell>
@@ -358,22 +415,33 @@ const ProjectDetails = (props) => {
             <TableRow>
               <TableCell>Miscellaneous Expense:</TableCell>
               <TableCell>{`${USDollar.format(
-                project.budgeted_miscellaneous_expense
+                props.currentProject.budgeted_miscellaneous_expense
               )}`}</TableCell>
               <TableCell>{`${USDollar.format(
-                project.adjusted_miscellaneous_expense
+                +props.currentProject.budgeted_miscellaneous_expense +
+                  sumArrayOfObjects(
+                    props.changeOrders,
+                    'co_miscellaneous_expense'
+                  )
               )}`}</TableCell>
               <TableCell>{`${USDollar.format(
                 expenseTotal(miscellaneousExpenses)
               )}`}</TableCell>
               <TableCell>
-                {!project.adjusted_miscellaneous_expense
+                {sumArrayOfObjects(
+                  props.changeOrders,
+                  'co_miscellaneous_expense'
+                ) === 0
                   ? `${USDollar.format(
-                      project.budgeted_miscellaneous_expense -
+                      props.currentProject.budgeted_miscellaneous_expense -
                         expenseTotal(miscellaneousExpenses)
                     )}`
                   : `${USDollar.format(
-                      project.adjusted_miscellaneous_expense -
+                      +props.currentProject.budgeted_miscellaneous_expense +
+                        sumArrayOfObjects(
+                          props.changeOrders,
+                          'co_miscellaneous_expense'
+                        ) -
                         expenseTotal(miscellaneousExpenses)
                     )}`}
               </TableCell>

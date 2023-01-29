@@ -168,7 +168,7 @@ const UpdateProject = (props) => {
   return (
     <>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add New Project</DialogTitle>
+        <DialogTitle>Update Project</DialogTitle>
         <DialogContent>
           <DialogContentText>
             To update the project, update as few as one field or as many as all
