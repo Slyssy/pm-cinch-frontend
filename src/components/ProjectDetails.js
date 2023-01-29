@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import MyMap from '../containers/Map';
 
@@ -34,10 +34,6 @@ const ProjectDetails = (props) => {
   const project = props.projects.rows.find((project) => project.id === +id);
 
   props.getCurrentProject(project);
-
-  // const [asd, setAsd] = useState(null);
-  // const [acd, setAcd] = useState(null);
-  // const [expenses, setExpenses] = useState([]);
 
   const token = props.token[0];
 
@@ -460,7 +456,10 @@ const ProjectDetails = (props) => {
           <Button variant='contained'>Update Project</Button>
         </Link>
         <Link to={`/projects/expenseLog/${project.id}`}>
-          <Button variant='contained'>View Expenses</Button>
+          <Button variant='contained'>Expense Log</Button>
+        </Link>
+        <Link to={`/projects/changeOrderLog/${project.id}`}>
+          <Button variant='contained'>Change Order Log</Button>
         </Link>
       </Stack>
       <Stack

@@ -15,6 +15,11 @@ import {
   DialogTitle,
 } from '@mui/material';
 
+import FormControl from '@mui/material/FormControl';
+import InputAdornment from '@mui/material/InputAdornment';
+import InputLabel from '@mui/material/InputLabel';
+import Input from '@mui/material/Input';
+
 const NewChangeOrder = (props) => {
   console.log(props);
 
@@ -39,11 +44,11 @@ const NewChangeOrder = (props) => {
     coStatus: '',
     dateSubmitted: null,
     dateApproved: null,
-    coRevenue: 0,
-    coLaborExpense: 0,
-    coMaterialExpense: 0,
-    coSubcontractorExpense: 0,
-    coMiscellaneousExpense: 0,
+    coRevenue: null,
+    coLaborExpense: null,
+    coMaterialExpense: null,
+    coSubcontractorExpense: null,
+    coMiscellaneousExpense: null,
   });
 
   const checkOpen = () => {
@@ -169,6 +174,24 @@ const NewChangeOrder = (props) => {
                 onChange={handleTextChange}
               />
             </Box>
+            {/* <FormControl sx={{ width: '80%', m: 1 }} variant='standard'>
+              <InputLabel htmlFor='standard-adornment-amount'>
+                Revenue
+              </InputLabel>
+              <Input
+                value={co.coRevenue}
+                name='coRevenue'
+                label='Revenue $: '
+                margin='dense'
+                id='co-revenue'
+                type='float'
+                variant='standard'
+                onChange={handleTextChange}
+                startAdornment={
+                  <InputAdornment position='start'>$</InputAdornment>
+                }
+              />
+            </FormControl> */}
             <Box sx={{ width: '80%' }}>
               <TextField
                 value={co.coLaborExpense}
@@ -217,6 +240,20 @@ const NewChangeOrder = (props) => {
                 id='co-miscellaneous-expense'
                 type='float'
                 fullWidth
+                variant='standard'
+                onChange={handleTextChange}
+              />
+            </Box>
+            <Box sx={{ width: '80%' }}>
+              <TextField
+                value={co.coDescription}
+                name='coDescription'
+                id='co-description'
+                label='Change Order Details:'
+                multiline
+                rows={4}
+                fullWidth
+                defaultValue='Default Value'
                 variant='standard'
                 onChange={handleTextChange}
               />
