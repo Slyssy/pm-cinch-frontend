@@ -87,7 +87,7 @@ const NewExpense = (props) => {
       )
       .then((response) => {
         const payload = response.data.expense;
-        props.addExpense(payload);
+        props.addExpenses(payload);
         handleClose();
       });
   };

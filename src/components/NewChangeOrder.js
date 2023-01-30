@@ -65,7 +65,7 @@ const NewChangeOrder = (props) => {
   const handleTextChange = (e) => {
     // console.log(e.target);
     const { name, value } = e.target;
-    // console.log(name, value);
+    console.log(name, value);
     setCO((prevState) => {
       return {
         ...prevState,
