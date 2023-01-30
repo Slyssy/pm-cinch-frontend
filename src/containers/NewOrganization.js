@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import NewOrganizations from '../components/NewOrganization';
+import NewOrganization from '../components/NewOrganization';
 import { addOrgs } from '../redux/actions';
 
 const mapStateToProps = (state) => {
@@ -14,4 +14,4 @@ const mapDispatchToProps = (dispatch) => {
     addOrgs: (org) => dispatch(addOrgs(org)),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(NewOrganizations);
+export default connect(mapStateToProps, mapDispatchToProps)(NewOrganization);
