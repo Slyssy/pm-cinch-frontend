@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import NewExpense from '../components/NewExpense';
-// import { deleteProject, getCoordinates } from '../redux/actions';
+import { addExpenses } from '../redux/actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -13,6 +13,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    addExpenses: (expense) => dispatch(addExpenses(expense)),
+  };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(NewExpense);

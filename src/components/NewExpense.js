@@ -69,22 +69,27 @@ const NewExpense = (props) => {
     const formattedExpenseDate = `${new Date(expenseDate).getFullYear()}-${
       new Date(expenseDate).getMonth() + 1
     }-${new Date(expenseDate).getDate()}`;
-    axios.post(
-      'https://pm-cinch-backend.vercel.app/expense',
-      {
-        projectID: currentProject.id,
-        expenseDate: formattedExpenseDate,
-        expenseType: expense.expenseType,
-        vendorName: expense.vendorName,
-        expenseAmount: expense.expenseAmount,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${props.token[0]}`,
+    axios
+      .post(
+        'https://pm-cinch-backend.vercel.app/expense',
+        {
+          projectID: currentProject.id,
+          expenseDate: formattedExpenseDate,
+          expenseType: expense.expenseType,
+          vendorName: expense.vendorName,
+          expenseAmount: expense.expenseAmount,
         },
-      }
-    );
-    handleClose();
+        {
+          headers: {
+            Authorization: `Bearer ${props.token[0]}`,
+          },
+        }
+      )
+      .then((response) => {
+        const payload = response.data.expense;
+        props.addExpense(payload);
+        handleClose();
+      });
   };
 
   return (
