@@ -69,7 +69,7 @@ const NewUser = (props) => {
       firstName: user.first_name,
       lastName: user.last_name,
       position: user.position,
-      email: user.position,
+      email: user.email,
       payRate: +user.pay_rate,
       password: user.password,
     });
