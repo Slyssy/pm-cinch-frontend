@@ -38,11 +38,21 @@ const Login = (props) => {
     // # Send POST request to server for user.
     // const payload = { ...user };
     // props.userLogin(payload);
+    const config = {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+      },
+    };
     axios
-      .post('https://pm-cinch-backend.vercel.app/signin', {
-        email: user.email,
-        password: user.password,
-      })
+      .post(
+        'https://pm-cinch-backend.vercel.app/signin',
+        {
+          email: user.email,
+          password: user.password,
+        },
+        config
+      )
       .then((response) => {
         // console.log(user.email);
         // console.log(user.password);
