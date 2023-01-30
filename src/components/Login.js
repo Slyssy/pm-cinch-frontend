@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {
   TextField,
   Button,
@@ -62,7 +62,7 @@ const Login = (props) => {
         const userInfo = response.data;
         // console.log(userInfo);
         props.addToken(payload);
-        props.addUser(user.info);
+        props.addUser(userInfo);
         // # If successful...
         //? set cookie here
         //? set loggedIn = true and max-age = 60*1000 (one minute)
