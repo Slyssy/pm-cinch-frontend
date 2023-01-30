@@ -253,7 +253,6 @@ const NewChangeOrder = (props) => {
                 multiline
                 rows={4}
                 fullWidth
-                defaultValue='Default Value'
                 variant='standard'
                 onChange={handleTextChange}
               />
