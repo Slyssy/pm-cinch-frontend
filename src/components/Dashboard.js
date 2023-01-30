@@ -69,7 +69,7 @@ export default function Dashboard(props) {
                   </Typography>
                   <Typography
                     variant='body1'
-                    sx={{ mb: 0.5, color: '#4a8b2c' }}
+                    sx={{ mb: 0.5, color: '#da5552' }}
                   >
                     {`Revenue: ${USDollar.format(project.original_revenue)}`}
                   </Typography>
