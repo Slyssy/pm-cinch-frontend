@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 
 const NewExpense = (props) => {
-  console.log(props);
+  // console.log(props);
 
   const { id } = useParams();
 

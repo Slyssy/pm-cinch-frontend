@@ -30,10 +30,10 @@ export const addExpenses = (expenses) => {
   };
 };
 
-export const addChangeOrder = (expenses) => {
+export const addChangeOrder = (changeOrder) => {
   return {
     type: 'ADD_CHANGE_ORDER',
-    value: expenses,
+    value: changeOrder,
   };
 };
 
