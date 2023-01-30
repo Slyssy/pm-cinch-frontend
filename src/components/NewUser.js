@@ -20,13 +20,15 @@ const NewUser = (props) => {
 
   const [open, setOpen] = useState(true);
 
+  // const [isVisible, setIsVisible] = useState(false)
+
   const [user, setUser] = useState({
     organizationId: '',
-    first_name: '',
-    last_name: '',
+    firstName: '',
+    lastName: '',
     position: '',
     email: '',
-    pay_rate: '',
+    payRate: '',
     password: '',
   });
 
@@ -68,7 +70,7 @@ const NewUser = (props) => {
       lastName: user.last_name,
       position: user.position,
       email: user.position,
-      pay_rate: user.pay_rate,
+      payRate: +user.pay_rate,
       password: user.password,
     });
     handleClose();
@@ -80,8 +82,8 @@ const NewUser = (props) => {
         <DialogTitle>Add New User</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To add a new user, simply fill out the form below and click
-            "Submit".
+            To add a new user first, select a company. If you do not see your
+            company, click "ADD COMPANY".
           </DialogContentText>
           <Box
             sx={{
@@ -95,80 +97,85 @@ const NewUser = (props) => {
               <Button id='add-company-button'>Add Company</Button>
             </Link>
           </Box>
-          <Box sx={{ width: '100%' }}>
-            <TextField
-              required
-              value={user.first_name}
-              name='first_name'
-              label='First Name:'
-              margin='dense'
-              id='first_name'
-              type='text'
-              fullWidth
-              variant='standard'
-              onChange={handleTextChange}
-            />
-            <TextField
-              required
-              value={user.last_name}
-              name='last_name'
-              label='Last Name:'
-              margin='dense'
-              id='last_name'
-              type='text'
-              fullWidth
-              variant='standard'
-              onChange={handleTextChange}
-            />
-            <TextField
-              required
-              value={user.position}
-              name='position'
-              label='Job Position'
-              margin='dense'
-              id='position'
-              type='text'
-              fullWidth
-              variant='standard'
-              onChange={handleTextChange}
-            />
-            <TextField
-              required
-              value={user.email}
-              name='email'
-              label='Email Address'
-              margin='dense'
-              id='email'
-              type='email'
-              fullWidth
-              variant='standard'
-              onChange={handleTextChange}
-            />
-            <TextField
-              required
-              value={user.pay_rate}
-              name='pay_rate'
-              label='Pay Rate / Hr'
-              margin='dense'
-              id='pay_rate'
-              type='float'
-              fullWidth
-              variant='standard'
-              onChange={handleTextChange}
-            />
-            <TextField
-              required
-              value={user.password_hash}
-              name='password'
-              label='Password:'
-              margin='dense'
-              id='password'
-              type='password'
-              fullWidth
-              variant='standard'
-              onChange={handleTextChange}
-            />
-          </Box>
+          {props.selection.length === 1 ? (
+            <Box sx={{ width: '100%' }}>
+              <DialogContentText>
+                Now fill out the fields below and click "SUBMIT".
+              </DialogContentText>
+              <TextField
+                required
+                value={user.first_name}
+                name='first_name'
+                label='First Name:'
+                margin='dense'
+                id='first_name'
+                type='text'
+                fullWidth
+                variant='standard'
+                onChange={handleTextChange}
+              />
+              <TextField
+                required
+                value={user.last_name}
+                name='last_name'
+                label='Last Name:'
+                margin='dense'
+                id='last_name'
+                type='text'
+                fullWidth
+                variant='standard'
+                onChange={handleTextChange}
+              />
+              <TextField
+                required
+                value={user.position}
+                name='position'
+                label='Job Position'
+                margin='dense'
+                id='position'
+                type='text'
+                fullWidth
+                variant='standard'
+                onChange={handleTextChange}
+              />
+              <TextField
+                required
+                value={user.email}
+                name='email'
+                label='Email Address'
+                margin='dense'
+                id='email'
+                type='email'
+                fullWidth
+                variant='standard'
+                onChange={handleTextChange}
+              />
+              <TextField
+                required
+                value={user.pay_rate}
+                name='pay_rate'
+                label='Pay Rate / Hr'
+                margin='dense'
+                id='pay_rate'
+                type='float'
+                fullWidth
+                variant='standard'
+                onChange={handleTextChange}
+              />
+              <TextField
+                required
+                value={user.password_hash}
+                name='password'
+                label='Password:'
+                margin='dense'
+                id='password'
+                type='password'
+                fullWidth
+                variant='standard'
+                onChange={handleTextChange}
+              />
+            </Box>
+          ) : null}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>

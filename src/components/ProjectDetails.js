@@ -72,7 +72,7 @@ const ProjectDetails = (props) => {
   const laborExpenses = props.expenses[0].filter(
     (expense) => expense.expense_type === 'Labor'
   );
-  console.log(laborExpenses);
+  // console.log(laborExpenses);
   //? Getting all expenses where expense type is Material
   const materialExpenses = props.expenses[0].filter(
     (expense) => expense.expense_type === 'Material'

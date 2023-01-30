@@ -19,19 +19,25 @@ const Navigation = () => {
           PM Cinch
         </Typography>
         <ul className='nav-list'>
-          <li className='nav-list-item'>
-            <Link to='/'>
-              <Typography style={{ color: 'white' }}>Dashboard</Typography>
-            </Link>
-          </li>
+          {checkAuth() ? (
+            <>
+              <li className='nav-list-item'>
+                <Link to='/'>
+                  <Typography style={{ color: 'white' }}>Dashboard</Typography>
+                </Link>
+              </li>
+              <li className='nav-list-item'>
+                <Link to='/newProject'>
+                  <Typography style={{ color: 'white' }}>
+                    New Project
+                  </Typography>
+                </Link>
+              </li>
+            </>
+          ) : null}
           <li className='nav-list-item'>
             <Link to='/newUser'>
               <Typography style={{ color: 'white' }}>New User</Typography>
-            </Link>
-          </li>
-          <li className='nav-list-item'>
-            <Link to='/newProject'>
-              <Typography style={{ color: 'white' }}>New Project</Typography>
             </Link>
           </li>
           <li

@@ -1,7 +1,11 @@
 import { connect } from 'react-redux';
 
 import NewChangeOrder from '../components/NewChangeOrder';
-import { deleteProject, getCoordinates } from '../redux/actions';
+import {
+  addChangeOrder,
+  deleteProject,
+  getCoordinates,
+} from '../redux/actions';
 
 const mapStateToProps = (state) => {
   return {
@@ -14,6 +18,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    addChangeOrder: (changeOrder) => dispatch(addChangeOrder(changeOrder)),
     getCoordinates: (address) => dispatch(getCoordinates(address)),
     deleteProject: (token, id) => dispatch(deleteProject(token, id)),
   };

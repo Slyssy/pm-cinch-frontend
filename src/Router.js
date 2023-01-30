@@ -57,10 +57,7 @@ const Router = () => {
         element={<ProtectedRoute component={NewChangeOrder} />}
       />
       <Route path='/newUser' element={<NewUser />} />
-      <Route
-        path='/newOrganization'
-        element={<ProtectedRoute component={NewOrganization} />}
-      />
+      <Route path='/newOrganization' element={<NewOrganization />} />
       <Route
         path='/newProject'
         element={<ProtectedRoute component={NewProject} />}

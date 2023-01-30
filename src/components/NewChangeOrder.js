@@ -15,13 +15,13 @@ import {
   DialogTitle,
 } from '@mui/material';
 
-import FormControl from '@mui/material/FormControl';
-import InputAdornment from '@mui/material/InputAdornment';
-import InputLabel from '@mui/material/InputLabel';
-import Input from '@mui/material/Input';
+// import FormControl from '@mui/material/FormControl';
+// import InputAdornment from '@mui/material/InputAdornment';
+// import InputLabel from '@mui/material/InputLabel';
+// import Input from '@mui/material/Input';
 
 const NewChangeOrder = (props) => {
-  console.log(props);
+  // console.log(props);
 
   const { id } = useParams();
 
@@ -38,17 +38,17 @@ const NewChangeOrder = (props) => {
   const [dateApproved, setDateApproved] = useState(null);
 
   const [co, setCO] = useState({
-    projectID: null,
+    projectID: '',
     coName: '',
     coDescription: '',
     coStatus: '',
-    dateSubmitted: null,
-    dateApproved: null,
-    coRevenue: null,
-    coLaborExpense: null,
-    coMaterialExpense: null,
-    coSubcontractorExpense: null,
-    coMiscellaneousExpense: null,
+    dateSubmitted: '',
+    dateApproved: '',
+    coRevenue: '',
+    coLaborExpense: '',
+    coMaterialExpense: '',
+    coSubcontractorExpense: '',
+    coMiscellaneousExpense: '',
   });
 
   const checkOpen = () => {
@@ -77,31 +77,37 @@ const NewChangeOrder = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const formattedDate = `${new Date(dateSubmitted).getFullYear()}-${
-      new Date(dateSubmitted).getMonth() + 1
-    }-${new Date(dateSubmitted).getDate()}`;
-    axios.post(
-      'https://pm-cinch-backend.vercel.app/changeOrder',
-      {
-        projectID: currentProject.id,
-        coName: co.coName,
-        coDescription: co.coDescription,
-        coStatus: co.coStatus,
-        dateSubmitted: dateSubmitted,
-        dateApproved: dateApproved,
-        coRevenue: co.coRevenue,
-        coLaborExpense: co.coLaborExpense,
-        coMaterialExpense: co.coMaterialExpense,
-        coSubcontractorExpense: co.coSubcontractorExpense,
-        coMiscellaneousExpense: co.coMiscellaneousExpense,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${props.token[0]}`,
+    // const formattedDate = `${new Date(dateSubmitted).getFullYear()}-${
+    //   new Date(dateSubmitted).getMonth() + 1
+    // }-${new Date(dateSubmitted).getDate()}`;
+
+    axios
+      .post(
+        'https://pm-cinch-backend.vercel.app/changeOrder',
+        {
+          projectID: currentProject.id,
+          coName: co.coName,
+          coDescription: co.coDescription,
+          coStatus: co.coStatus,
+          dateSubmitted: dateSubmitted,
+          dateApproved: dateApproved,
+          coRevenue: co.coRevenue,
+          coLaborExpense: co.coLaborExpense,
+          coMaterialExpense: co.coMaterialExpense,
+          coSubcontractorExpense: co.coSubcontractorExpense,
+          coMiscellaneousExpense: co.coMiscellaneousExpense,
         },
-      }
-    );
-    handleClose();
+        {
+          headers: {
+            Authorization: `Bearer ${props.token[0]}`,
+          },
+        }
+      )
+      .then((response) => {
+        const payload = response.data.changeOrder;
+        props.addChangeOrder(payload);
+        handleClose();
+      });
   };
   return (
     <Box>
