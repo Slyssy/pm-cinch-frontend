@@ -1,20 +1,19 @@
+import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-// import Spinner from './Spinner';
-// # MUI Table Imports......................................
-// import Typography from '@mui/material/Typography';
-import {
-  Container,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-} from '@mui/material';
 
-const Dashboard = (props) => {
-  // console.log(props);
+//# MUI Card Imports
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+
+export default function Dashboard(props) {
+  console.log(props);
   const [projects, setProjects] = useState([]);
 
   let USDollar = new Intl.NumberFormat('en-US', {
@@ -54,139 +53,135 @@ const Dashboard = (props) => {
   };
 
   return (
-    <Container>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Project Name</TableCell>
-            <TableCell>Status</TableCell>
-            <TableCell>Revenue</TableCell>
-            <TableCell>Adj Rev</TableCell>
-            <TableCell>Est Exp</TableCell>
-            <TableCell>Act Exp</TableCell>
-            <TableCell>Est Margin</TableCell>
-            {/* <TableCell>Act Margin</TableCell> */}
-            <TableCell>ESD</TableCell>
-            <TableCell>ECD</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {projects.map((project) => {
-            return (
-              <TableRow key={`${project.id}__row`}>
-                <TableCell>
+    <main className='dashboard__main'>
+      {projects.map((project) => {
+        return (
+          <Box sx={{ width: '300px' }}>
+            <Card variant='outlined' sx={{ m: 1.5 }}>
+              <React.Fragment>
+                <CardContent>
+                  <Typography
+                    variant='h6'
+                    component='div'
+                    sx={{ mb: 0.5, color: '#2B2D42' }}
+                  >
+                    {project.project_name}
+                  </Typography>
+                  <Typography
+                    variant='body1'
+                    sx={{ mb: 0.5, color: '#4a8b2c' }}
+                  >
+                    {`Revenue: ${USDollar.format(project.original_revenue)}`}
+                  </Typography>
+                  <Typography
+                    variant='body2'
+                    sx={{ mb: 0.5 }}
+                    color='text.secondary'
+                  >
+                    {`Labor Expense: ${USDollar.format(
+                      project.budgeted_labor_expense
+                    )}`}
+                  </Typography>
+                  <Typography
+                    variant='body2'
+                    sx={{ mb: 0.5 }}
+                    color='text.secondary'
+                  >
+                    {`Material Expense: ${USDollar.format(
+                      project.budgeted_material_expense
+                    )}`}
+                  </Typography>
+                  <Typography
+                    variant='body2'
+                    sx={{ mb: 0.5 }}
+                    color='text.secondary'
+                  >
+                    {`Subcontractor Expense: ${USDollar.format(
+                      project.budgeted_subcontractor_expense
+                    )}`}
+                  </Typography>
+                  <Typography
+                    variant='body2'
+                    sx={{ mb: 0.5 }}
+                    color='text.secondary'
+                  >
+                    {`Miscellaneous Expense: ${USDollar.format(
+                      project.budgeted_miscellaneous_expense
+                    )}`}
+                  </Typography>
+                  <Typography variant='body1' sx={{ mb: 0.5 }} color='primary'>
+                    {isNaN(
+                      ((project.original_revenue -
+                        totalExpense([
+                          project.budgeted_labor_expense,
+                          project.budgeted_material_expense,
+                          project.budgeted_miscellaneous_expense,
+                          project.budgeted_subcontractor_expense,
+                        ])) /
+                        project.original_revenue) *
+                        100
+                    )
+                      ? `Gross Margin: TBD`
+                      : `Gross Margin: ${parseFloat(
+                          ((project.original_revenue -
+                            totalExpense([
+                              project.budgeted_labor_expense,
+                              project.budgeted_material_expense,
+                              project.budgeted_miscellaneous_expense,
+                              project.budgeted_subcontractor_expense,
+                            ])) /
+                            project.original_revenue) *
+                            100
+                        ).toFixed(2)} %`}
+                  </Typography>
+                  <Stack
+                    direction='row'
+                    justifyContent='left'
+                    alignItems='center'
+                    spacing={3.5}
+                    marginTop='1em'
+                  >
+                    <Typography
+                      variant='body2'
+                      sx={{ mb: 0.5 }}
+                      color='text.primary'
+                    >
+                      {`ESD: ${
+                        new Date(project.estimated_start_date).getMonth() + 1
+                      }/${new Date(
+                        project.estimated_start_date
+                      ).getDate()}/${new Date(
+                        project.estimated_start_date
+                      ).getFullYear()}`}
+                    </Typography>
+                    <Typography
+                      variant='body2'
+                      sx={{ mb: 0.5 }}
+                      color='text.primary'
+                    >
+                      {`ECD: ${
+                        new Date(project.estimated_complete_date).getMonth() + 1
+                      }/${new Date(
+                        project.estimated_complete_date
+                      ).getDate()}/${new Date(
+                        project.estimated_complete_date
+                      ).getFullYear()}`}
+                    </Typography>
+                  </Stack>
+                </CardContent>
+                <CardActions>
                   <Link
                     to={`/projects/${project.id}`}
                     onClick={handleClick(project, 'id')}
                   >
-                    {project.project_name}
+                    <Button size='small'>Project Details</Button>
                   </Link>
-                </TableCell>
-
-                <TableCell>{project.project_status}</TableCell>
-                <TableCell>
-                  {!project.original_revenue
-                    ? 'TBD'
-                    : `${USDollar.format(project.original_revenue)}`}
-                </TableCell>
-                <TableCell>
-                  {!project.adjusted_revenue
-                    ? 'TBD'
-                    : `${USDollar.format(project.adjusted_revenue)}`}
-                </TableCell>
-                <TableCell>
-                  {`${USDollar.format(
-                    totalExpense([
-                      project.budgeted_labor_expense,
-                      project.budgeted_material_expense,
-                      project.budgeted_miscellaneous_expense,
-                      project.budgeted_subcontractor_expense,
-                    ])
-                  )}`}
-                </TableCell>
-                <TableCell>
-                  {`${USDollar.format(
-                    totalExpense([
-                      project.actual_labor_expense,
-                      project.actual_material_expense,
-                      project.actual_miscellaneous_expense,
-                      project.actual_subcontractor_expense,
-                    ])
-                  )}`}
-                </TableCell>
-                <TableCell>
-                  {isNaN(
-                    ((project.original_revenue -
-                      totalExpense([
-                        project.budgeted_labor_expense,
-                        project.budgeted_material_expense,
-                        project.budgeted_miscellaneous_expense,
-                        project.budgeted_subcontractor_expense,
-                      ])) /
-                      project.original_revenue) *
-                      100
-                  )
-                    ? 'TBD'
-                    : `${parseFloat(
-                        ((project.original_revenue -
-                          totalExpense([
-                            project.budgeted_labor_expense,
-                            project.budgeted_material_expense,
-                            project.budgeted_miscellaneous_expense,
-                            project.budgeted_subcontractor_expense,
-                          ])) /
-                          project.original_revenue) *
-                          100
-                      ).toFixed(2)} %`}
-                </TableCell>
-                {/* <TableCell>
-                  {isNaN(
-                    ((project.adjusted_revenue -
-                      totalExpense([
-                        project.actual_labor_expense,
-                        project.actual_material_expense,
-                        project.actual_miscellaneous_expense,
-                        project.actual_subcontractor_expense,
-                      ])) /
-                      project.original_revenue) *
-                      100
-                  )
-                    ? 'TBD'
-                    : ((project.adjusted_revenue -
-                        totalExpense([
-                          project.actual_labor_expense,
-                          project.actual_material_expense,
-                          project.actual_miscellaneous_expense,
-                          project.actual_subcontractor_expense,
-                        ])) /
-                        project.original_revenue) *
-                      100}
-                </TableCell> */}
-                <TableCell>
-                  {`${
-                    new Date(project.estimated_start_date).getMonth() + 1
-                  }/${new Date(
-                    project.estimated_start_date
-                  ).getDate()}/${new Date(
-                    project.estimated_start_date
-                  ).getFullYear()}`}
-                </TableCell>
-                <TableCell>
-                  {`${
-                    new Date(project.estimated_complete_date).getMonth() + 1
-                  }/${new Date(
-                    project.estimated_complete_date
-                  ).getDate()}/${new Date(
-                    project.estimated_complete_date
-                  ).getFullYear()}`}
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </Container>
+                </CardActions>
+              </React.Fragment>
+            </Card>
+          </Box>
+        );
+      })}
+    </main>
   );
-};
-
-export default Dashboard;
+}
