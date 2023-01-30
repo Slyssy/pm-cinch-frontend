@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
 import {
   Box,
@@ -10,7 +10,7 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
-
+import Button from '@mui/material/Button';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -46,16 +46,17 @@ const ChangeOrderLog = (props) => {
 
   return (
     <Box>
-      <Box
-        sx={{
-          display: 'flex',
-          margin: '1em 1em',
-          flexDirection: 'column',
-        }}
-      >
-        {`${currentProject.project_name} Change Orders`}
-      </Box>
       <Container>
+        <Box
+          sx={{
+            typography: 'subtitle2',
+            fontSize: 'h4.fontSize',
+            textAlign: 'center',
+            marginTop: '1em',
+          }}
+        >
+          {`${currentProject.project_name} Change Orders`}
+        </Box>
         <Table>
           <TableHead>
             <TableRow>
@@ -147,6 +148,17 @@ const ChangeOrderLog = (props) => {
             </TableRow>
           </TableHead>
         </Table>
+        <Box
+          sx={{
+            display: 'flex',
+            marginTop: '1em',
+            flexDirection: 'row-reverse',
+          }}
+        >
+          <Link to={`/projects/${currentProject.id}`}>
+            <Button variant='outlined'>Back to Project Details</Button>
+          </Link>
+        </Box>
       </Container>
     </Box>
   );

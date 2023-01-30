@@ -76,7 +76,7 @@ const NewChangeOrder = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    console.log(co.coSubcontractorExpense);
     // const formattedDate = `${new Date(dateSubmitted).getFullYear()}-${
     //   new Date(dateSubmitted).getMonth() + 1
     // }-${new Date(dateSubmitted).getDate()}`;
