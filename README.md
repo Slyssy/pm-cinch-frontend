@@ -52,3 +52,17 @@ and I plan on using this when I bring it further along.
     Email: matthew.huntsberry@austincodingacademy.com
 
     Password: matthew123
+
+## Instructions
+
+1. Either log in using provided credentials, or you can create a new user, by
+   selecting the New User link at the top of the log in page.
+2. If you have created a new user, you will either need to select from an
+   existing company or create a new one. Simply follow the instructions.
+3. If you created a new user, you will have no projects so once you log in, you
+   dashboard will be empty. You will need to create a project.
+4. After creating a project, a card will appear on the dashboard, with the
+   project details. Click on the "Project Details" button to add expenses,
+   update the project, ad change orders or delete the project.
+5. Once you do, start making changes, you will notice that the project
+   financials start updating for automatically tracking the success of the project.
