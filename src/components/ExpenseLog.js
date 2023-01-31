@@ -76,26 +76,10 @@ const ExpenseLog = (props) => {
   return (
     <Box>
       <Box className='page-container'>
-        <Box
-          sx={{
-            typography: 'subtitle2',
-            fontSize: 'h4.fontSize',
-            textAlign: 'center',
-            marginTop: '1em',
-          }}
-        >
+        <Box className='log-page__title'>
           {`${currentProject.project_name} Expenses`}
         </Box>
-        <Box
-          sx={{
-            typography: 'subtitle2',
-            fontSize: 'h6.fontSize',
-            textAlign: 'left',
-            margin: '1em 2em',
-          }}
-        >
-          Labor Expenses
-        </Box>
+        <Box className='log-page__subtitle'>Labor Expenses</Box>
         <Container className='table__container'>
           <Table>
             <TableHead>
@@ -170,16 +154,7 @@ const ExpenseLog = (props) => {
             </TableHead>
           </Table>
         </Container>
-        <Box
-          sx={{
-            typography: 'subtitle2',
-            fontSize: 'h6.fontSize',
-            textAlign: 'left',
-            margin: '1em 2em',
-          }}
-        >
-          Material Expenses
-        </Box>
+        <Box className='log-page__subtitle'>Material Expenses</Box>
         <Container className='table__container'>
           <Table>
             <TableHead>
@@ -255,16 +230,7 @@ const ExpenseLog = (props) => {
             </TableHead>
           </Table>
         </Container>
-        <Box
-          sx={{
-            typography: 'subtitle2',
-            fontSize: 'h6.fontSize',
-            textAlign: 'left',
-            margin: '1em 2em',
-          }}
-        >
-          Subcontractor Expenses
-        </Box>
+        <Box className='log-page__subtitle'>Subcontractor Expenses</Box>
         <Container className='table__container'>
           <Table>
             <TableHead>
@@ -339,16 +305,7 @@ const ExpenseLog = (props) => {
             </TableHead>
           </Table>
         </Container>
-        <Box
-          sx={{
-            typography: 'subtitle2',
-            fontSize: 'h6.fontSize',
-            textAlign: 'left',
-            margin: '1em 2em',
-          }}
-        >
-          Miscellaneous Expenses
-        </Box>
+        <Box className='log-page__subtitle'>Miscellaneous Expenses</Box>
         <Container className='table__container'>
           <Table>
             <TableHead>

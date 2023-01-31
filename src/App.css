@@ -139,6 +139,22 @@ td {
   text-align: center !important;
 }
 
+/* %Log Pages Styles */
+.log-page__title {
+  font-size: 20px;
+  text-align: center;
+  color: #32323d;
+  margin-top: 0.5em;
+  font-weight: 700;
+}
+
+.log-page__subtitle {
+  font-size: 18px;
+  text-align: center;
+  color: #32323d;
+  margin-top: 0.5em;
+}
+
 /* %Add New Projet Styles */
 .map-container {
   margin-top: 1em;
