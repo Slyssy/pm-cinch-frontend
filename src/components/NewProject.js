@@ -143,8 +143,11 @@ const NewProject = (props) => {
             To add a new project, simply fill out the form below and click
             "Submit".
           </DialogContentText>
-          <Box sx={{ display: 'flex', marginTop: '1em', gap: '1em' }}>
-            <Box sx={{ width: '50%' }}>
+          <Box
+            className='new-project__form-container'
+            // sx={{ display: 'flex', marginTop: '1em', gap: '1em' }}
+          >
+            <Box className='new-project__input-container'>
               <TextField
                 required
                 value={project.projectName}
@@ -217,12 +220,8 @@ const NewProject = (props) => {
                 onChange={handleTextChange}
                 onBlur={handleCoordinates}
               />
-              <Box sx={{ display: 'flex', marginTop: '1em', gap: '1em' }}>
-                <label>ESD:</label>
-                <DatePicker selected={esd} onSelect={(date) => setEsd(date)} />
-              </Box>
             </Box>
-            <Box sx={{ width: '50%' }}>
+            <Box className='new-project__input-container'>
               <TextField
                 required
                 value={project.projectStatus}
@@ -295,14 +294,18 @@ const NewProject = (props) => {
                 variant='standard'
                 onChange={handleTextChange}
               />
-              <Box sx={{ display: 'flex', marginTop: '1em', gap: '1em' }}>
-                <label>ECD:</label>
-                <DatePicker selected={ecd} onSelect={(date) => setEcd(date)} />
-              </Box>
+            </Box>
+            <Box className='new-project_esd-date-picker'>
+              <label>ESD:</label>
+              <DatePicker selected={esd} onSelect={(date) => setEsd(date)} />
+            </Box>
+            <Box className='new-project_ecd-date-picker'>
+              <label>ECD:</label>
+              <DatePicker selected={ecd} onSelect={(date) => setEcd(date)} />
             </Box>
           </Box>
           {!project.zip ? (
-            <div className='image-container'>
+            <div className='map-container'>
               <img className='map-icon' src={mapIcon} alt='Map Icon' />
             </div>
           ) : (
