@@ -75,13 +75,7 @@ const ExpenseLog = (props) => {
 
   return (
     <Box>
-      <Box
-        sx={{
-          display: 'flex',
-          margin: '1em 1em',
-          flexDirection: 'column',
-        }}
-      >
+      <Box className='page-container'>
         <Box
           sx={{
             typography: 'subtitle2',
@@ -102,7 +96,7 @@ const ExpenseLog = (props) => {
         >
           Labor Expenses
         </Box>
-        <Container>
+        <Container className='table__container'>
           <Table>
             <TableHead>
               <TableRow>
@@ -131,6 +125,14 @@ const ExpenseLog = (props) => {
                     </TableCell>
                     <TableCell>
                       <DeleteIcon
+                        className='icon text-red'
+                        color='warning'
+                        sx={{
+                          '&:hover': {
+                            backgroundColor: 'transparent',
+                            cursor: 'pointer',
+                          },
+                        }}
                         onClick={() => {
                           axios
                             .delete(
@@ -178,7 +180,7 @@ const ExpenseLog = (props) => {
         >
           Material Expenses
         </Box>
-        <Container>
+        <Container className='table__container'>
           <Table>
             <TableHead>
               <TableRow>
@@ -207,6 +209,14 @@ const ExpenseLog = (props) => {
                     </TableCell>
                     <TableCell>
                       <DeleteIcon
+                        className='icon text-red'
+                        color='warning'
+                        sx={{
+                          '&:hover': {
+                            backgroundColor: 'transparent',
+                            cursor: 'pointer',
+                          },
+                        }}
                         onClick={() => {
                           console.log('Delete Me.');
                           axios
@@ -255,7 +265,7 @@ const ExpenseLog = (props) => {
         >
           Subcontractor Expenses
         </Box>
-        <Container>
+        <Container className='table__container'>
           <Table>
             <TableHead>
               <TableRow>
@@ -284,6 +294,14 @@ const ExpenseLog = (props) => {
                     </TableCell>
                     <TableCell>
                       <DeleteIcon
+                        className='icon text-red'
+                        color='warning'
+                        sx={{
+                          '&:hover': {
+                            backgroundColor: 'transparent',
+                            cursor: 'pointer',
+                          },
+                        }}
                         onClick={() => {
                           axios
                             .delete(
@@ -331,7 +349,7 @@ const ExpenseLog = (props) => {
         >
           Miscellaneous Expenses
         </Box>
-        <Container>
+        <Container className='table__container'>
           <Table>
             <TableHead>
               <TableRow>
@@ -360,6 +378,14 @@ const ExpenseLog = (props) => {
                     </TableCell>
                     <TableCell>
                       <DeleteIcon
+                        className='icon text-red'
+                        color='warning'
+                        sx={{
+                          '&:hover': {
+                            backgroundColor: 'transparent',
+                            cursor: 'pointer',
+                          },
+                        }}
                         onClick={() => {
                           axios
                             .delete(
@@ -396,18 +422,12 @@ const ExpenseLog = (props) => {
               </TableRow>
             </TableHead>
           </Table>
-          <Box
-            sx={{
-              display: 'flex',
-              marginTop: '1em',
-              flexDirection: 'row-reverse',
-            }}
-          >
-            <Link to={`/projects/${currentProject.id}`}>
-              <Button variant='outlined'>Back to Project Details</Button>
-            </Link>
-          </Box>
         </Container>
+        <Box>
+          <Link to={`/projects/${currentProject.id}`}>
+            <Button variant='outlined'>Back to Project Details</Button>
+          </Link>
+        </Box>
       </Box>
     </Box>
   );

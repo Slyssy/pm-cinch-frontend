@@ -45,14 +45,15 @@ const ChangeOrderLog = (props) => {
   }));
 
   return (
-    <Box>
-      <Container>
+    <Box className='page-container'>
+      <Container className='table__container'>
         <Box
           sx={{
             typography: 'subtitle2',
             fontSize: 'h4.fontSize',
             textAlign: 'center',
             marginTop: '1em',
+            paddingLeft: '0',
           }}
         >
           {`${currentProject.project_name} Change Orders`}
@@ -105,6 +106,14 @@ const ChangeOrderLog = (props) => {
                   <TableCell>{co.co_description}</TableCell>
                   <TableCell>
                     <DeleteIcon
+                      className='icon text-red'
+                      color='warning'
+                      sx={{
+                        '&:hover': {
+                          backgroundColor: 'transparent',
+                          cursor: 'pointer',
+                        },
+                      }}
                       onClick={() => {
                         axios
                           .delete(
@@ -148,18 +157,18 @@ const ChangeOrderLog = (props) => {
             </TableRow>
           </TableHead>
         </Table>
-        <Box
-          sx={{
-            display: 'flex',
-            marginTop: '1em',
-            flexDirection: 'row-reverse',
-          }}
-        >
-          <Link to={`/projects/${currentProject.id}`}>
-            <Button variant='outlined'>Back to Project Details</Button>
-          </Link>
-        </Box>
       </Container>
+      <Box
+        sx={{
+          display: 'flex',
+          marginTop: '1em',
+          flexDirection: 'row-reverse',
+        }}
+      >
+        <Link to={`/projects/${currentProject.id}`}>
+          <Button variant='outlined'>Back to Project Details</Button>
+        </Link>
+      </Box>
     </Box>
   );
 };

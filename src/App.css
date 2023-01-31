@@ -18,7 +18,7 @@
 }
 
 /* %Project Details Styles */
-.project-details-table__container {
+.table__container {
   overflow-x: auto;
   margin-right: auto;
   margin-left: auto;
@@ -173,6 +173,14 @@ td {
   gap: 1em;
   align-items: center;
   justify-content: center;
+}
+
+.page-container {
+  width: 95%;
+  margin: auto;
+  display: grid;
+  grid-column: 1fr;
+  justify-items: center;
 }
 /*% Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
