@@ -213,6 +213,13 @@ td {
     font-size: 16px;
   }
 
+  .log-page__title {
+    font-size: 26px;
+  }
+
+  .log-page__subtitle {
+    font-size: 22px;
+  }
   /* %New Project Styles */
   .new-project__form-container {
     grid-template-columns: 1fr 1fr;

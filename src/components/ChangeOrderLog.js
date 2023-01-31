@@ -46,18 +46,10 @@ const ChangeOrderLog = (props) => {
 
   return (
     <Box className='page-container'>
+      <Box className='log-page__subtitle'>
+        {`${currentProject.project_name} Change Orders`}
+      </Box>
       <Container className='table__container'>
-        <Box
-          sx={{
-            typography: 'subtitle2',
-            fontSize: 'h4.fontSize',
-            textAlign: 'center',
-            marginTop: '1em',
-            paddingLeft: '0',
-          }}
-        >
-          {`${currentProject.project_name} Change Orders`}
-        </Box>
         <Table>
           <TableHead>
             <TableRow>
