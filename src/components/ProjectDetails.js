@@ -267,7 +267,7 @@ const ProjectDetails = (props) => {
       </Box>
       <Divider variant='middle' />
       <Box className='project-details__title'>Financials</Box>
-      <Container className='project-details-table__container'>
+      <Container className='table__container'>
         <Table className='project-details__table'>
           <TableHead>
             <TableRow>

@@ -75,34 +75,12 @@ const ExpenseLog = (props) => {
 
   return (
     <Box>
-      <Box
-        sx={{
-          display: 'flex',
-          margin: '1em 1em',
-          flexDirection: 'column',
-        }}
-      >
-        <Box
-          sx={{
-            typography: 'subtitle2',
-            fontSize: 'h4.fontSize',
-            textAlign: 'center',
-            marginTop: '1em',
-          }}
-        >
+      <Box className='page-container'>
+        <Box className='log-page__title'>
           {`${currentProject.project_name} Expenses`}
         </Box>
-        <Box
-          sx={{
-            typography: 'subtitle2',
-            fontSize: 'h6.fontSize',
-            textAlign: 'left',
-            margin: '1em 2em',
-          }}
-        >
-          Labor Expenses
-        </Box>
-        <Container>
+        <Box className='log-page__subtitle'>Labor Expenses</Box>
+        <Container className='table__container'>
           <Table>
             <TableHead>
               <TableRow>
@@ -131,6 +109,14 @@ const ExpenseLog = (props) => {
                     </TableCell>
                     <TableCell>
                       <DeleteIcon
+                        className='icon text-red'
+                        color='warning'
+                        sx={{
+                          '&:hover': {
+                            backgroundColor: 'transparent',
+                            cursor: 'pointer',
+                          },
+                        }}
                         onClick={() => {
                           axios
                             .delete(
@@ -168,17 +154,8 @@ const ExpenseLog = (props) => {
             </TableHead>
           </Table>
         </Container>
-        <Box
-          sx={{
-            typography: 'subtitle2',
-            fontSize: 'h6.fontSize',
-            textAlign: 'left',
-            margin: '1em 2em',
-          }}
-        >
-          Material Expenses
-        </Box>
-        <Container>
+        <Box className='log-page__subtitle'>Material Expenses</Box>
+        <Container className='table__container'>
           <Table>
             <TableHead>
               <TableRow>
@@ -207,6 +184,14 @@ const ExpenseLog = (props) => {
                     </TableCell>
                     <TableCell>
                       <DeleteIcon
+                        className='icon text-red'
+                        color='warning'
+                        sx={{
+                          '&:hover': {
+                            backgroundColor: 'transparent',
+                            cursor: 'pointer',
+                          },
+                        }}
                         onClick={() => {
                           console.log('Delete Me.');
                           axios
@@ -245,17 +230,8 @@ const ExpenseLog = (props) => {
             </TableHead>
           </Table>
         </Container>
-        <Box
-          sx={{
-            typography: 'subtitle2',
-            fontSize: 'h6.fontSize',
-            textAlign: 'left',
-            margin: '1em 2em',
-          }}
-        >
-          Subcontractor Expenses
-        </Box>
-        <Container>
+        <Box className='log-page__subtitle'>Subcontractor Expenses</Box>
+        <Container className='table__container'>
           <Table>
             <TableHead>
               <TableRow>
@@ -284,6 +260,14 @@ const ExpenseLog = (props) => {
                     </TableCell>
                     <TableCell>
                       <DeleteIcon
+                        className='icon text-red'
+                        color='warning'
+                        sx={{
+                          '&:hover': {
+                            backgroundColor: 'transparent',
+                            cursor: 'pointer',
+                          },
+                        }}
                         onClick={() => {
                           axios
                             .delete(
@@ -321,17 +305,8 @@ const ExpenseLog = (props) => {
             </TableHead>
           </Table>
         </Container>
-        <Box
-          sx={{
-            typography: 'subtitle2',
-            fontSize: 'h6.fontSize',
-            textAlign: 'left',
-            margin: '1em 2em',
-          }}
-        >
-          Miscellaneous Expenses
-        </Box>
-        <Container>
+        <Box className='log-page__subtitle'>Miscellaneous Expenses</Box>
+        <Container className='table__container'>
           <Table>
             <TableHead>
               <TableRow>
@@ -360,6 +335,14 @@ const ExpenseLog = (props) => {
                     </TableCell>
                     <TableCell>
                       <DeleteIcon
+                        className='icon text-red'
+                        color='warning'
+                        sx={{
+                          '&:hover': {
+                            backgroundColor: 'transparent',
+                            cursor: 'pointer',
+                          },
+                        }}
                         onClick={() => {
                           axios
                             .delete(
@@ -396,18 +379,12 @@ const ExpenseLog = (props) => {
               </TableRow>
             </TableHead>
           </Table>
-          <Box
-            sx={{
-              display: 'flex',
-              marginTop: '1em',
-              flexDirection: 'row-reverse',
-            }}
-          >
-            <Link to={`/projects/${currentProject.id}`}>
-              <Button variant='outlined'>Back to Project Details</Button>
-            </Link>
-          </Box>
         </Container>
+        <Box>
+          <Link to={`/projects/${currentProject.id}`}>
+            <Button variant='outlined'>Back to Project Details</Button>
+          </Link>
+        </Box>
       </Box>
     </Box>
   );
