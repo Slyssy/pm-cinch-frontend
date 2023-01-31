@@ -1,3 +1,6 @@
+.MuiToolbar-gutters {
+  width: 100%;
+}
 .nav-list {
   list-style: none;
   display: flex;
@@ -43,7 +46,7 @@
 }
 
 .dashboard__main {
-  width: 90%;
+  width: 80%;
   margin: auto;
   display: flex;
   justify-content: space-around;
