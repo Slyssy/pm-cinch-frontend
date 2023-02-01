@@ -172,7 +172,7 @@ const ProjectDetails = (props) => {
             ).getDate()}/${new Date(
               props.currentProject.estimated_start_date
             ).getFullYear()}`}
-            color='success'
+            style={{ color: '#32323d', border: '1px solid #32323d' }}
             variant='outlined'
           ></Chip>
           <Chip
@@ -196,7 +196,7 @@ const ProjectDetails = (props) => {
                     props.currentProject.actual_start_date
                   ).getFullYear()}`
             }
-            color='success'
+            style={{ background: '#32323d', color: 'white' }}
           ></Chip>
           <Chip
             label={`ECD: ${
@@ -208,7 +208,7 @@ const ProjectDetails = (props) => {
             ).getDate()}/${new Date(
               props.currentProject.estimated_complete_date
             ).getFullYear()}`}
-            color='success'
+            style={{ color: '#32323d', border: '1px solid #32323d' }}
             variant='outlined'
           ></Chip>
           <Chip
@@ -232,7 +232,7 @@ const ProjectDetails = (props) => {
                     props.currentProject.actual_complete_date
                   ).getFullYear()}`
             }
-            color='success'
+            style={{ background: '#32323d', color: 'white' }}
           ></Chip>
         </Box>
         <Box
@@ -244,7 +244,11 @@ const ProjectDetails = (props) => {
           // marginTop='2em'
         >
           <Link to={`/projects/expense/${project.id}`}>
-            <Button variant='outlined' className='add__button'>
+            <Button
+              variant='outlined'
+              className='add__button'
+              style={{ color: '#5d1451', border: '1px solid #5d1451' }}
+            >
               + New Expense
             </Button>
           </Link>
@@ -252,7 +256,12 @@ const ProjectDetails = (props) => {
             + Time Entry
           </Button>
           <Link to={`/projects/co/${project.id}`}>
-            <Button variant='outlined'>+ Change Order</Button>
+            <Button
+              variant='outlined'
+              style={{ color: '#5d1451', border: '1px solid #5d1451' }}
+            >
+              + Change Order
+            </Button>
           </Link>
         </Box>
         <Box
@@ -443,19 +452,29 @@ const ProjectDetails = (props) => {
       </Container>
       <Box className='project-details__bottom-buttons'>
         <Link to={`/projects/expenseLog/${project.id}`}>
-          <Button variant='contained'>Expense Log</Button>
+          <Button variant='contained' style={{ background: '#5d1451' }}>
+            Expense Log
+          </Button>
         </Link>
         <Link to={`/projects/changeOrderLog/${project.id}`}>
-          <Button variant='contained'>Change Order Log</Button>
+          <Button variant='contained' style={{ background: '#5d1451' }}>
+            Change Order Log
+          </Button>
         </Link>
       </Box>
       <Box className='project-details__update-button'>
         <Link to={`/projects/update/${project.id}`}>
-          <Button variant='contained'>Update Project</Button>
+          <Button variant='contained' style={{ background: '#5d1451' }}>
+            Update Project
+          </Button>
         </Link>
       </Box>
       <Box className='project-details__delete-button'>
-        <Button variant='contained' color='error' onClick={handleDelete}>
+        <Button
+          variant='contained'
+          style={{ background: '#32323d' }}
+          onClick={handleDelete}
+        >
           Delete Project
         </Button>
       </Box>
