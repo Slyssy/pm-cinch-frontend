@@ -137,7 +137,9 @@ const NewProject = (props) => {
   return (
     <>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add New Project</DialogTitle>
+        <DialogTitle>
+          Add <span className='text-emphasis'>New Project</span>
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             To add a new project, simply fill out the form below and click

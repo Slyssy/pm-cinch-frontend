@@ -7,7 +7,8 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Chip from '@mui/material/Chip';
-// import Paper from '@material-ui/core/Paper';
+import { createStyles, makeStyles } from '@mui/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import {
   Container,
@@ -17,11 +18,26 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
+
 import axios from 'axios';
+
+//# Button Styles...
+const useStyles = makeStyles((theme) => {
+  createStyles({
+    buttonHover: {
+      transition: 'all 250ms',
+      '&:hover': {
+        transition: 'scale(1.1)',
+      },
+    },
+  });
+});
+
+const theme = createTheme();
 
 const ProjectDetails = (props) => {
   console.log(props);
-
+  const classes = useStyles();
   const navigate = useNavigate();
 
   let USDollar = new Intl.NumberFormat('en-US', {
@@ -452,31 +468,54 @@ const ProjectDetails = (props) => {
       </Container>
       <Box className='project-details__bottom-buttons'>
         <Link to={`/projects/expenseLog/${project.id}`}>
-          <Button variant='contained' style={{ background: '#5d1451' }}>
-            Expense Log
-          </Button>
+          <ThemeProvider theme={theme}>
+            <Button
+              variant='contained'
+              className={classes.buttonHover}
+              style={{ background: '#5d1451' }}
+            >
+              Expense Log
+            </Button>
+          </ThemeProvider>
         </Link>
         <Link to={`/projects/changeOrderLog/${project.id}`}>
-          <Button variant='contained' style={{ background: '#5d1451' }}>
-            Change Order Log
-          </Button>
+          <ThemeProvider theme={theme}>
+            <Button
+              variant='contained'
+              className={classes.buttonHover}
+              style={{ background: '#5d1451' }}
+            >
+              Change Order Log
+            </Button>
+          </ThemeProvider>
         </Link>
       </Box>
       <Box className='project-details__update-button'>
         <Link to={`/projects/update/${project.id}`}>
-          <Button variant='contained' style={{ background: '#5d1451' }}>
-            Update Project
-          </Button>
+          <ThemeProvider theme={theme}>
+            <Button
+              variant='contained'
+              className={classes.buttonHover}
+              style={{ background: '#5d1451' }}
+            >
+              Update Project
+            </Button>
+          </ThemeProvider>
         </Link>
       </Box>
       <Box className='project-details__delete-button'>
-        <Button
-          variant='contained'
-          style={{ background: '#32323d' }}
-          onClick={handleDelete}
-        >
-          Delete Project
-        </Button>
+        <Link to={`/`}>
+          <ThemeProvider theme={theme}>
+            <Button
+              variant='contained'
+              className={classes.buttonHover}
+              style={{ background: '#32323d' }}
+              onClick={handleDelete}
+            >
+              Delete Project
+            </Button>
+          </ThemeProvider>
+        </Link>
       </Box>
     </Box>
   );

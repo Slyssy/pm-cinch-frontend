@@ -91,21 +91,30 @@ function ResponsiveAppBar() {
               }}
             >
               {checkAuth() ? (
-                <>
+                <div>
                   <Link to='/'>
-                    <MenuItem onClick={handleCloseNavMenu}>
+                    <MenuItem
+                      onClick={handleCloseNavMenu}
+                      style={{ color: '#32323d' }}
+                    >
                       <Typography textAlign='center'>Dashboard</Typography>
                     </MenuItem>
                   </Link>
                   <Link to='/newProject'>
-                    <MenuItem onClick={handleCloseNavMenu}>
+                    <MenuItem
+                      onClick={handleCloseNavMenu}
+                      style={{ color: '#32323d' }}
+                    >
                       <Typography textAlign='center'>New Project</Typography>
                     </MenuItem>
                   </Link>
-                </>
+                </div>
               ) : null}
               <Link to='/newUser'>
-                <MenuItem onClick={handleCloseNavMenu}>
+                <MenuItem
+                  onClick={handleCloseNavMenu}
+                  style={{ color: '#32323d' }}
+                >
                   <Typography textAlign='center'>New User</Typography>
                 </MenuItem>
               </Link>
@@ -121,6 +130,7 @@ function ResponsiveAppBar() {
                   );
                   navigate('/login');
                 }}
+                style={{ color: '#32323d' }}
               >
                 <Typography textAlign='center'>
                   {checkAuth() ? 'Logout' : 'Login'}

@@ -11,10 +11,27 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-// import { fontWeight } from '@mui/system';
+import { createStyles, makeStyles } from '@mui/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+//# Button Styles...
+const useStyles = makeStyles((theme) => {
+  createStyles({
+    buttonHover: {
+      transition: 'all 250ms',
+      '&:hover': {
+        transition: 'scale(1.1)',
+      },
+    },
+  });
+});
+
+const theme = createTheme();
 
 export default function Dashboard(props) {
   console.log(props);
+  const classes = useStyles();
+
   const [projects, setProjects] = useState([]);
 
   let USDollar = new Intl.NumberFormat('en-US', {
@@ -186,12 +203,15 @@ export default function Dashboard(props) {
                       to={`/projects/${project.id}`}
                       onClick={handleClick(project, 'id')}
                     >
-                      <Button
-                        size='small'
-                        sx={{ color: '#5d1451', fontWeight: '700' }}
-                      >
-                        Project Details
-                      </Button>
+                      <ThemeProvider theme={theme}>
+                        <Button
+                          size='small'
+                          className={classes.buttonHover}
+                          sx={{ color: '#5d1451', fontWeight: '700' }}
+                        >
+                          Project Details
+                        </Button>
+                      </ThemeProvider>
                     </Link>
                   </CardContent>
                   {/* <CardActions></CardActions> */}

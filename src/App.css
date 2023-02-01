@@ -20,6 +20,7 @@
   background: #5d1451;
   color: white;
   padding: 0 0.5em;
+  border-radius: 5px 10px 5px 30px/30px 35px 10px 15px;
 }
 
 .dashboard__main {
@@ -146,9 +147,15 @@
 }
 a {
   text-decoration: none;
+  transition: all 250ms;
 }
+
+a:hover {
+  transform: scale(1.1);
+}
+
 tr {
-  height: 40px !important;
+  height: 30px !important;
 }
 
 th {
@@ -166,12 +173,19 @@ td {
   text-align: center !important;
 }
 
+.MuiButton-text {
+  transition: all 250ms;
+}
+
+.MuiButton-text:hover {
+  transition: scale(1.1);
+}
 /* %Log Pages Styles */
 .log-page__title {
   font-size: 20px;
   text-align: center;
   color: #32323d;
-  margin-top: 0.5em;
+  margin: 0.5em 0;
   font-weight: 700;
 }
 
@@ -179,7 +193,8 @@ td {
   font-size: 18px;
   text-align: center;
   color: #32323d;
-  margin-top: 0.5em;
+  margin-top: 1em;
+  font-weight: 500;
 }
 
 /* %Add New Projet Styles */
@@ -249,6 +264,8 @@ td {
 
   .log-page__title {
     font-size: 26px;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
   }
 
   .log-page__subtitle {
