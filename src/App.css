@@ -8,6 +8,20 @@
 }
 
 /* % Dashboard Styles */
+.dashboard__title {
+  width: 90%;
+  margin: 1em auto;
+  font-size: 24px;
+  line-height: 1.7em;
+  font-weight: 700;
+}
+
+.text-emphasis {
+  background: #5d1451;
+  color: white;
+  padding: 0 0.5em;
+}
+
 .dashboard__main {
   width: 80%;
   margin: auto;
@@ -15,6 +29,15 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+}
+.card-holder {
+  background-color: #32323d03;
+  box-shadow: 5px 5px 16px -2px #32323d54;
+  margin-bottom: 2em;
+}
+.MuiCardContent-root {
+  background-color: #32323d03;
+  backdrop-filter: blur(10px);
 }
 
 /* %Project Details Styles */
@@ -76,6 +99,9 @@
   justify-self: center;
 }
 
+.actual-chip {
+  background: #32323d;
+}
 .project-details__map {
   grid-row: 2/3;
   width: 95%;
@@ -85,7 +111,7 @@
 
 .project-details__add-buttons {
   width: 90%;
-  margin: auto;
+  margin: 0 auto 1em;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   justify-items: center;
@@ -109,6 +135,7 @@
   grid-template-columns: 1fr;
   justify-items: center;
 }
+
 .project-details__delete-button {
   width: 90%;
   margin: auto;
@@ -203,6 +230,13 @@ td {
   /* % Dashboard Styles */
   .dashboard__main {
     justify-content: space-around;
+  }
+  .dashboard__title {
+    font-size: 44px;
+  }
+
+  .text-emphasis {
+    padding: 0.2em 0.5em;
   }
 
   .project-details__title {
