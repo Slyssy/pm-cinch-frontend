@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import Dashboard from '../components/Dashboard';
+import StackedBarChart from '../components/StackedBarChart';
 import {
   getOrgs,
   selectDropdown,
@@ -15,7 +15,6 @@ const mapStateToProps = (state) => {
     token: state.token,
     projects: state.projects,
     user: state.user,
-    expenses: state.expenses,
   };
 };
 
@@ -29,4 +28,4 @@ const mapDispatchToProps = (dispatch) => {
     getChangeOrders: (token, id) => dispatch(getChangeOrders(token, id)),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(StackedBarChart);
