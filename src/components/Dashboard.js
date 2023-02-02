@@ -11,10 +11,11 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-// import { fontWeight } from '@mui/system';
 
 export default function Dashboard(props) {
   console.log(props);
+  // const classes = useStyles();
+
   const [projects, setProjects] = useState([]);
 
   let USDollar = new Intl.NumberFormat('en-US', {
@@ -188,7 +189,15 @@ export default function Dashboard(props) {
                     >
                       <Button
                         size='small'
-                        sx={{ color: '#5d1451', fontWeight: '700' }}
+                        variant='contained'
+                        sx={{
+                          borderRadius: '5px 10px 5px 30px/30px 35px 10px 15px',
+                          transition: 'all 250ms',
+                          ':hover': {
+                            transform: 'scale(1.05)',
+                          },
+                        }}
+                        style={{ background: '#5d1451' }}
                       >
                         Project Details
                       </Button>

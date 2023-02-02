@@ -79,7 +79,9 @@ const NewUser = (props) => {
   return (
     <>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add New User</DialogTitle>
+        <DialogTitle>
+          Add <span className='text-emphasis'>New User</span>
+        </DialogTitle>
         <DialogContent>
           <DialogContentText>
             To add a new user first, select a company. If you do not see your
