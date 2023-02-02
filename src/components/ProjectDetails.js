@@ -3,11 +3,10 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import MyMap from '../containers/Map';
 
 import Box from '@mui/material/Box';
-// import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Chip from '@mui/material/Chip';
-import { createStyles, makeStyles } from '@mui/styles';
+
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import {
@@ -21,23 +20,11 @@ import {
 
 import axios from 'axios';
 
-//# Button Styles...
-const useStyles = makeStyles((theme) => {
-  createStyles({
-    buttonHover: {
-      transition: 'all 250ms',
-      '&:hover': {
-        transition: 'scale(1.1)',
-      },
-    },
-  });
-});
-
 const theme = createTheme();
 
 const ProjectDetails = (props) => {
   console.log(props);
-  const classes = useStyles();
+
   const navigate = useNavigate();
 
   let USDollar = new Intl.NumberFormat('en-US', {
@@ -120,62 +107,18 @@ const ProjectDetails = (props) => {
   // );
   return (
     <Box className='project-details__main'>
-      <Box
-        // sx={{
-        //   display: 'flex',
-        //   margin: '1em 1em',
-        // }}
-        className='project-details__address-map-dates-links'
-      >
-        <Box
-          className='project-details__address-box'
-          // sx={{
-          //   width: '50%',
-          //   height: '30vh',
-          //   display: 'flex',
-          //   flexDirection: 'column',
-          // }}
-        >
-          <Box
-            className='project-details__title'
-            // sx={{
-            //   typography: 'subtitle2',
-            //   fontSize: 'h5.fontSize',
-            //   textAlign: 'center',
-            //   marginTop: '1em',
-            // }}
-          >
+      <Box className='project-details__address-map-dates-links'>
+        <Box className='project-details__address-box'>
+          <Box className='project-details__title'>
             {props.currentProject.project_name}
           </Box>
-          <Box
-            className='project-details__text'
-            // sx={{
-            //   typography: 'subtitle2',
-            //   fontSize: '16px',
-            //   textAlign: 'center',
-            //   marginTop: '.5em',
-            // }}
-          >
+          <Box className='project-details__text'>
             {props.currentProject.street_1}
           </Box>
-          <Box
-            className='project-details__text'
-            // sx={{
-            //   typography: 'subtitle2',
-            //   fontSize: '16px',
-            //   textAlign: 'center',
-            // }}
-          >
+          <Box className='project-details__text'>
             {props.currentProject.street_2}
           </Box>
-          <Box
-            className='project-details__text'
-            // sx={{
-            //   typography: 'subtitle2',
-            //   fontSize: '16px',
-            //   textAlign: 'center',
-            // }}
-          >
+          <Box className='project-details__text'>
             {`${props.currentProject.city}, ${props.currentProject.state} ${props.currentProject.zip}`}
           </Box>
         </Box>
@@ -251,14 +194,7 @@ const ProjectDetails = (props) => {
             style={{ background: '#32323d', color: 'white' }}
           ></Chip>
         </Box>
-        <Box
-          className='project-details__add-buttons'
-          // direction='row'
-          // justifyContent='center'
-          // alignItems='center'
-          // spacing={2}
-          // marginTop='2em'
-        >
+        <Box className='project-details__add-buttons'>
           <Link to={`/projects/expense/${project.id}`}>
             <Button
               variant='outlined'
@@ -469,22 +405,14 @@ const ProjectDetails = (props) => {
       <Box className='project-details__bottom-buttons'>
         <Link to={`/projects/expenseLog/${project.id}`}>
           <ThemeProvider theme={theme}>
-            <Button
-              variant='contained'
-              className={classes.buttonHover}
-              style={{ background: '#5d1451' }}
-            >
+            <Button variant='contained' style={{ background: '#5d1451' }}>
               Expense Log
             </Button>
           </ThemeProvider>
         </Link>
         <Link to={`/projects/changeOrderLog/${project.id}`}>
           <ThemeProvider theme={theme}>
-            <Button
-              variant='contained'
-              className={classes.buttonHover}
-              style={{ background: '#5d1451' }}
-            >
+            <Button variant='contained' style={{ background: '#5d1451' }}>
               Change Order Log
             </Button>
           </ThemeProvider>
@@ -493,11 +421,7 @@ const ProjectDetails = (props) => {
       <Box className='project-details__update-button'>
         <Link to={`/projects/update/${project.id}`}>
           <ThemeProvider theme={theme}>
-            <Button
-              variant='contained'
-              className={classes.buttonHover}
-              style={{ background: '#5d1451' }}
-            >
+            <Button variant='contained' style={{ background: '#5d1451' }}>
               Update Project
             </Button>
           </ThemeProvider>
@@ -508,7 +432,6 @@ const ProjectDetails = (props) => {
           <ThemeProvider theme={theme}>
             <Button
               variant='contained'
-              className={classes.buttonHover}
               style={{ background: '#32323d' }}
               onClick={handleDelete}
             >

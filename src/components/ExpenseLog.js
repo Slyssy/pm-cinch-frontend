@@ -14,7 +14,7 @@ import Button from '@mui/material/Button';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import { styled } from '@mui/material/styles';
 import DeleteIcon from '@mui/icons-material/Delete';
-
+// import { makeStyles } from '@mui/material/styles';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme({
@@ -100,9 +100,7 @@ const ExpenseLog = (props) => {
             {`${currentProject.project_name}`}{' '}
             <span className='text-emphasis'>Expenses</span>
           </Box>
-          <Box className='log-page__subtitle'>
-            <span className='text-emphasis'>Labor</span> Expenses
-          </Box>
+          <Box className='log-page__subtitle'>Labor Expenses</Box>
           <Container className='table__container'>
             <Table>
               <TableHead>
@@ -179,9 +177,7 @@ const ExpenseLog = (props) => {
               </TableHead>
             </Table>
           </Container>
-          <Box className='log-page__subtitle'>
-            <span className='text-emphasis'>Material</span> Expenses
-          </Box>
+          <Box className='log-page__subtitle'>Material Expenses</Box>
           <Container className='table__container'>
             <Table>
               <TableHead>
@@ -259,9 +255,7 @@ const ExpenseLog = (props) => {
               </TableHead>
             </Table>
           </Container>
-          <Box className='log-page__subtitle'>
-            <span className='text-emphasis'>Subcontractor</span> Expenses
-          </Box>
+          <Box className='log-page__subtitle'>Subcontractor Expenses</Box>
           <Container className='table__container'>
             <Table>
               <TableHead>
@@ -338,9 +332,7 @@ const ExpenseLog = (props) => {
               </TableHead>
             </Table>
           </Container>
-          <Box className='log-page__subtitle'>
-            <span className='text-emphasis'>Miscellaneous</span> Expenses
-          </Box>
+          <Box className='log-page__subtitle'>Miscellaneous Expenses</Box>
           <Container className='table__container'>
             <Table>
               <TableHead>
@@ -419,7 +411,13 @@ const ExpenseLog = (props) => {
           </Container>
           <Box>
             <Link to={`/projects/${currentProject.id}`}>
-              <Button variant='outlined'>Back to Project Details</Button>
+              <Button
+                variant='contained'
+                sx={{ borderRadius: '5px 10px 5px 30px/30px 35px 10px 15px' }}
+                style={{ background: '#5d1451' }}
+              >
+                Back to Project Details
+              </Button>
             </Link>
           </Box>
         </Box>

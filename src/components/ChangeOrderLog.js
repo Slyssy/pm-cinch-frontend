@@ -180,7 +180,13 @@ const ChangeOrderLog = (props) => {
           }}
         >
           <Link to={`/projects/${currentProject.id}`}>
-            <Button variant='outlined'>Back to Project Details</Button>
+            <Button
+              variant='contained'
+              sx={{ borderRadius: '5px 10px 5px 30px/30px 35px 10px 15px' }}
+              style={{ background: '#5d1451' }}
+            >
+              Back to Project Details
+            </Button>
           </Link>
         </Box>
       </Box>
