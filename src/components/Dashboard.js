@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import StackedBarChart from '../containers/StackedBarChart';
 
@@ -31,15 +32,18 @@ const ExpandMore = styled((props) => {
 
 export default function Dashboard(props) {
   console.log(props);
-  // const classes = useStyles();
 
-  const [expanded, setExpanded] = React.useState(false);
+  const navigate = useNavigate();
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const [expandedId, setExpandedId] = React.useState(-1);
+
+  const handleExpandClick = (i) => {
+    setExpandedId(expandedId === i ? -1 : i);
   };
 
   const [projects, setProjects] = useState([]);
+  // eslint-disable-next-line
+  const [expenses, setExpenses] = useState([props.expenses]);
 
   let USDollar = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -59,22 +63,33 @@ export default function Dashboard(props) {
           Authorization: `Bearer ${bearToken}`,
         },
       })
-      .then(
-        (response) => {
-          // console.log(response.data.rows);
-          setProjects(response.data.rows);
-        },
-        [props.token]
-      );
-    // props.getProjects(bearToken);
+      .then((response) => {
+        // console.log(response.data.rows);
+        setProjects(response.data.rows);
+      });
+    props.getProjects(bearToken);
     // console.log(projects);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.token[0]]);
+  }, [bearToken]);
 
   const handleClick = (project, item) => {
-    props.getExpenses(props.token[0], project[item]);
     props.getChangeOrders(props.token[0], project[item]);
+    props.getExpenses(props.token[0], project[item]);
+    axios
+      .get(`https://pm-cinch-backend.vercel.app/expense/${project[item]}`, {
+        headers: {
+          Authorization: `Bearer ${bearToken}`,
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+        setExpenses(response.data);
+
+        const payload = expenses;
+        props.addExpenses(payload);
+        setTimeout(navigate(`/projects/${project[item]}`), 2000);
+      });
   };
 
   return (
@@ -84,7 +99,7 @@ export default function Dashboard(props) {
         <span className='text-emphasis'>Project Dashboard</span>
       </Box>
       <main className='dashboard__main'>
-        {projects.map((project) => {
+        {projects.map((project, i) => {
           return (
             <Box
               sx={{ width: '300px' }}
@@ -208,37 +223,47 @@ export default function Dashboard(props) {
                     </Stack>
                   </CardContent>
                   <CardActions>
-                    <Link
-                      to={`/projects/${project.id}`}
-                      onClick={handleClick(project, 'id')}
+                    <Button
+                      onClick={() => {
+                        handleClick(project, 'id');
+                      }}
+                      size='small'
+                      variant='contained'
+                      sx={{
+                        borderRadius: '5px 10px 5px 30px/30px 35px 10px 15px',
+                        transition: 'all 250ms',
+                        ':hover': {
+                          transform: 'scale(1.05)',
+                        },
+                      }}
+                      style={{ background: '#5d1451' }}
                     >
-                      <Button
-                        size='small'
-                        variant='contained'
-                        sx={{
-                          borderRadius: '5px 10px 5px 30px/30px 35px 10px 15px',
-                          transition: 'all 250ms',
-                          ':hover': {
-                            transform: 'scale(1.05)',
-                          },
-                        }}
-                        style={{ background: '#5d1451' }}
-                      >
-                        Project Details
-                      </Button>
-                    </Link>
+                      Project Details
+                    </Button>
                     <ExpandMore
-                      expand={expanded}
-                      onClick={handleExpandClick}
-                      aria-expanded={expanded}
+                      expand={expandedId === i}
+                      onClick={() => {
+                        handleExpandClick(i);
+                      }}
+                      aria-expanded={expandedId === i}
                       aria-label='show more'
                     >
                       <ExpandMoreIcon />
                     </ExpandMore>
                   </CardActions>
-                  <Collapse in={expanded} timeout='auto' unmountOnExit>
+                  <Collapse in={expandedId === i} timeout='auto' unmountOnExit>
                     <CardContent sx={{ height: '200px' }}>
-                      <StackedBarChart />
+                      <StackedBarChart
+                        budgetedRevenue={project.original_revenue}
+                        budgetedLabor={project.budgeted_labor_expense}
+                        budgetedMaterial={project.budgeted_material_expense}
+                        budgetedSubcontractor={
+                          project.budgeted_subcontractor_expense
+                        }
+                        budgetedMiscellaneous={
+                          project.budgeted_miscellaneous_expense
+                        }
+                      />
                     </CardContent>
                   </Collapse>
                 </React.Fragment>

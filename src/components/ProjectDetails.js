@@ -105,30 +105,34 @@ const ProjectDetails = (props) => {
   //   +props.currentProject.original_revenue +
   //     sumArrayOfObjects(props.changeOrders, 'co_revenue')
   // );
+
+  const actStartDate = `${
+    new Date(project.actual_start_date).getMonth() + 1
+  }/${new Date(project.actual_start_date).getDate()}/${new Date(
+    project.actual_start_date
+  ).getFullYear()}`;
+
+  const actCompDate = `${
+    new Date(project.actual_complete_date).getMonth() + 1
+  }/${new Date(project.actual_complete_date).getDate()}/${new Date(
+    project.actual_complete_date
+  ).getFullYear()}`;
   return (
     <Box className='project-details__main'>
       <Box className='project-details__address-map-dates-links'>
         <Box className='project-details__address-box'>
-          <Box className='project-details__title'>
-            {props.currentProject.project_name}
-          </Box>
+          <Box className='project-details__title'>{project.project_name}</Box>
+          <Box className='project-details__text'>{project.street_1}</Box>
+          <Box className='project-details__text'>{project.street_2}</Box>
           <Box className='project-details__text'>
-            {props.currentProject.street_1}
-          </Box>
-          <Box className='project-details__text'>
-            {props.currentProject.street_2}
-          </Box>
-          <Box className='project-details__text'>
-            {`${props.currentProject.city}, ${props.currentProject.state} ${props.currentProject.zip}`}
+            {`${project.city}, ${project.state} ${project.zip}`}
           </Box>
         </Box>
         <Box className='project-details__date-chips'>
           <Chip
             label={`ESD: ${
-              new Date(props.currentProject.estimated_start_date).getMonth() + 1
-            }/${new Date(
-              props.currentProject.estimated_start_date
-            ).getDate()}/${new Date(
+              new Date(project.estimated_start_date).getMonth() + 1
+            }/${new Date(project.estimated_start_date).getDate()}/${new Date(
               props.currentProject.estimated_start_date
             ).getFullYear()}`}
             style={{ color: '#32323d', border: '1px solid #32323d' }}
@@ -137,58 +141,35 @@ const ProjectDetails = (props) => {
           <Chip
             className='project-details_chip'
             label={
-              `ASD: ${
-                new Date(props.currentProject.actual_start_date).getMonth() + 1
-              }/${new Date(
-                props.currentProject.actual_start_date
-              ).getDate()}/${new Date(
-                props.currentProject.actual_start_date
-              ).getFullYear()}` === `ASD: 12/31/1969`
-                ? 'ASD: TBD'
+              new Date(actStartDate) < new Date()
+                ? 'ASD:  Date Not Entered'
                 : `ASD: ${
-                    new Date(
-                      props.currentProject.actual_start_date
-                    ).getMonth() + 1
-                  }/${new Date(
-                    props.currentProject.actual_start_date
-                  ).getDate()}/${new Date(
-                    props.currentProject.actual_start_date
+                    new Date(project.actual_start_date).getMonth() + 1
+                  }/${new Date(project.actual_start_date).getDate()}/${new Date(
+                    project.actual_start_date
                   ).getFullYear()}`
             }
             style={{ background: '#32323d', color: 'white' }}
           ></Chip>
           <Chip
             label={`ECD: ${
-              new Date(
-                props.currentProject.estimated_complete_date
-              ).getMonth() + 1
-            }/${new Date(
-              props.currentProject.estimated_complete_date
-            ).getDate()}/${new Date(
-              props.currentProject.estimated_complete_date
+              new Date(project.estimated_complete_date).getMonth() + 1
+            }/${new Date(project.estimated_complete_date).getDate()}/${new Date(
+              project.estimated_complete_date
             ).getFullYear()}`}
             style={{ color: '#32323d', border: '1px solid #32323d' }}
             variant='outlined'
           ></Chip>
           <Chip
             label={
-              `ACD: ${
-                new Date(props.currentProject.actual_complete_date).getMonth() +
-                1
-              }/${new Date(
-                props.currentProject.actual_complete_date
-              ).getDate()}/${new Date(
-                props.currentProject.actual_complete_date
-              ).getFullYear()}` === `ACD: 12/31/1969`
-                ? 'ACD: TBD'
+              new Date(actCompDate) < new Date()
+                ? 'ACD:  Date Not Entered'
                 : `ACD: ${
-                    new Date(
-                      props.currentProject.actual_complete_date
-                    ).getMonth() + 1
+                    new Date(project.actual_complete_date).getMonth() + 1
                   }/${new Date(
-                    props.currentProject.actual_complete_date
+                    project.actual_complete_date
                   ).getDate()}/${new Date(
-                    props.currentProject.actual_complete_date
+                    project.actual_complete_date
                   ).getFullYear()}`
             }
             style={{ background: '#32323d', color: 'white' }}
