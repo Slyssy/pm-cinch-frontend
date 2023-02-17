@@ -34,8 +34,8 @@ const UpdateProject = (props) => {
   const [ecd, setEcd] = useState(
     new Date(currentProject.estimated_complete_date)
   );
-  const [acd, setAcd] = useState(new Date(currentProject.actual_complete_date));
-  const [asd, setAsd] = useState(new Date(currentProject.actual_start_date));
+  const [acd, setAcd] = useState(null);
+  const [asd, setAsd] = useState(null);
 
   const [project, setProject] = useState({
     actual_complete_date: currentProject.actual_complete_date,
