@@ -90,7 +90,7 @@ const expenses = (state = [], action) => {
 
 const changeOrders = (state = null, action) => {
   switch (action.type) {
-    case 'ADD_CHANGE_ORDER':
+    case 'ADD_CHANGE_ORDERS':
       return [...state, action.value];
     case 'GET_CHANGE_ORDER':
       return action.value;

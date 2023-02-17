@@ -115,7 +115,7 @@ const Login = (props) => {
             type='submit'
             className='login-button'
             variant='contained'
-            color='secondary'
+            style={{ background: '#5d1451' }}
           >
             Login
           </Button>

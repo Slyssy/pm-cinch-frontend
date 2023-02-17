@@ -9,7 +9,7 @@ const state = {
   coordinates: [],
   expenses: [],
   currentProject: null,
-  changeOrders: null,
+  changeOrders: [],
 };
 
 export default state;

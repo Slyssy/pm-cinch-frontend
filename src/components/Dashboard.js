@@ -32,18 +32,20 @@ const ExpandMore = styled((props) => {
 
 export default function Dashboard(props) {
   console.log(props);
+  const bearToken = props.token[0];
 
   const navigate = useNavigate();
 
   const [expandedId, setExpandedId] = React.useState(-1);
 
-  const handleExpandClick = (i) => {
+  const handleExpandClick = async (i, project, item) => {
     setExpandedId(expandedId === i ? -1 : i);
   };
 
   const [projects, setProjects] = useState([]);
   // eslint-disable-next-line
   const [expenses, setExpenses] = useState([props.expenses]);
+  const [changeOrders, setChangeOrders] = useState([props.changeOrders]);
 
   let USDollar = new Intl.NumberFormat('en-US', {
     style: 'currency',
@@ -53,8 +55,6 @@ export default function Dashboard(props) {
   const totalExpense = (array) => {
     return array.reduce((acc, cur) => +acc + +cur, 0);
   };
-
-  const bearToken = props.token[0];
 
   useEffect(() => {
     axios
@@ -73,23 +73,62 @@ export default function Dashboard(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bearToken]);
 
-  const handleClick = (project, item) => {
-    props.getChangeOrders(props.token[0], project[item]);
-    props.getExpenses(props.token[0], project[item]);
-    axios
-      .get(`https://pm-cinch-backend.vercel.app/expense/${project[item]}`, {
+  const getData = async (project, item) => {
+    const expenseResponse = await axios.get(
+      `https://pm-cinch-backend.vercel.app/expense/${project[item]}`,
+      {
         headers: {
           Authorization: `Bearer ${bearToken}`,
         },
-      })
-      .then((response) => {
-        console.log(response.data);
-        setExpenses(response.data);
+      }
+    );
 
-        const payload = expenses;
-        props.addExpenses(payload);
-        setTimeout(navigate(`/projects/${project[item]}`), 2000);
-      });
+    const changeOrderResponse = await axios.get(
+      `https://pm-cinch-backend.vercel.app/changeOrder/${project[item]}`,
+      {
+        headers: {
+          Authorization: `Bearer ${bearToken}`,
+        },
+      }
+    );
+    setExpenses(expenseResponse.data);
+    setChangeOrders(changeOrderResponse.data);
+    const data = {
+      projectExpenses: expenseResponse.data,
+      projectChangeOrders: changeOrderResponse.data,
+    };
+    return data;
+  };
+
+  const handleClick = async (project, item) => {
+    await getData(project, item);
+    console.log('Expenses: ', expenses);
+    console.log('ChangeOrders: ', changeOrders);
+    navigate(`/projects/${project[item]}`);
+    // const response = await axios.get(
+    //   `https://pm-cinch-backend.vercel.app/expense/${project[item]}`,
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${bearToken}`,
+    //     },
+    //   }
+    // );
+    // console.log(response.data);
+    // setExpenses(response.data);
+
+    // const expenseResponse = await props.getExpenses(
+    //   props.token[0],
+    //   project[item]
+    // );
+    // setExpenses(expenseResponse);
+    // const expensePayload = expenses;
+    // props.addExpenses(expensePayload);
+
+    // setChangeOrders(changeOrderResponse);
+    // const changeOrderPayload = changeOrders;
+    // props.addChangeOrder(changeOrderPayload);
+
+    // setTimeout(navigate(`/projects/${project[item]}`), 5000);
   };
 
   return (
@@ -243,7 +282,7 @@ export default function Dashboard(props) {
                     <ExpandMore
                       expand={expandedId === i}
                       onClick={() => {
-                        handleExpandClick(i);
+                        handleExpandClick(i, project, 'id');
                       }}
                       aria-expanded={expandedId === i}
                       aria-label='show more'

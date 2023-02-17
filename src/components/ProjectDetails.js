@@ -26,20 +26,22 @@ const ProjectDetails = (props) => {
   console.log(props);
 
   const navigate = useNavigate();
+  const token = props.token[0];
 
+  //# Formula to format currency.
   let USDollar = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
   });
 
+  //# Destructuring params object and setting id variable.
   const { id } = useParams();
   // console.log(id);
-
+  //# Getting current project by looping through all the projects and finding the one with id that matches userParams.
   const project = props.projects.rows.find((project) => project.id === +id);
 
+  //# Adding the current project to global state.
   props.getCurrentProject(project);
-
-  const token = props.token[0];
 
   const handleDelete = () => {
     axios
@@ -52,16 +54,19 @@ const ProjectDetails = (props) => {
         navigate('/');
       });
   };
-  useEffect(() => {
-    const address = `${props.currentProject.street_1}, ${props.currentProject.city}, ${props.currentProject.state} ${props.currentProject.zip}`;
 
-    props.getChangeOrders(token, project.id);
+  useEffect(() => {
+    //# Getting all the projects by using the axios request from the action file.
     props.getProjects(token);
-    props.getCurrentProject(project);
-    props.getCoordinates(address);
+
+    //# Getting all the expenses associated with the project by using the axios request saved in the actions file. This also adds the expenses to global state.
     props.getExpenses(token, project.id);
-    // eslint-disable-next-line
-  }, []);
+    //# Getting all the Change Orders associated with the project by using the axios request saved in the actions file. This also adds the expenses to global state.
+    props.getChangeOrders(token, project.id);
+    //# Getting coordinates needed for the map.
+    const address = `${project.street_1}, ${project.city}, ${project.state} ${project.zip}`;
+    props.getCoordinates(address);
+  }, [token, project, props]);
 
   //% Getting Expense Values .........................................
   const expenseTotal = (expenses) => {
@@ -72,25 +77,38 @@ const ProjectDetails = (props) => {
     return totalExpense;
   };
 
+  console.log(props.expenses);
   //? Getting all expenses where expense type is Labor
-  const laborExpenses = props.expenses[0].filter(
-    (expense) => expense.expense_type === 'Labor'
-  );
+  let laborExpenses;
+  props.expenses.length < 1
+    ? (laborExpenses = [0])
+    : (laborExpenses = props.expenses[0].filter(
+        (expense) => expense.expense_type === 'Labor'
+      ));
   // console.log(laborExpenses);
   //? Getting all expenses where expense type is Material
-  const materialExpenses = props.expenses[0].filter(
-    (expense) => expense.expense_type === 'Material'
-  );
+  let materialExpenses;
+  props.expenses.length < 1
+    ? (materialExpenses = [0])
+    : (materialExpenses = props.expenses[0].filter(
+        (expense) => expense.expense_type === 'Material'
+      ));
   // console.log(materialExpenses);
   //? Getting all expenses where expense type is Subcontractor
-  const subcontractorExpenses = props.expenses[0].filter(
-    (expense) => expense.expense_type === 'Subcontractor'
-  );
+  let subcontractorExpenses;
+  props.expenses.length < 1
+    ? (subcontractorExpenses = [0])
+    : (subcontractorExpenses = props.expenses[0].filter(
+        (expense) => expense.expense_type === 'Subcontractor'
+      ));
   // console.log(subcontractorExpenses);
   //? Getting all expenses where expense type is Miscellaneous
-  const miscellaneousExpenses = props.expenses[0].filter(
-    (expense) => expense.expense_type === 'Miscellaneous'
-  );
+  let miscellaneousExpenses;
+  props.expenses.length < 1
+    ? (miscellaneousExpenses = [0])
+    : (miscellaneousExpenses = props.expenses[0].filter(
+        (expense) => expense.expense_type === 'Miscellaneous'
+      ));
   // console.log(miscellaneousExpenses);
   //% Getting Change Order Values..........................................
   const sumArrayOfObjects = (array, item) => {
@@ -133,7 +151,7 @@ const ProjectDetails = (props) => {
             label={`ESD: ${
               new Date(project.estimated_start_date).getMonth() + 1
             }/${new Date(project.estimated_start_date).getDate()}/${new Date(
-              props.currentProject.estimated_start_date
+              project.estimated_start_date
             ).getFullYear()}`}
             style={{ color: '#32323d', border: '1px solid #32323d' }}
             variant='outlined'
@@ -224,42 +242,41 @@ const ProjectDetails = (props) => {
             <TableRow>
               <TableCell>Revenue</TableCell>
               <TableCell numeric>
-                {`${USDollar.format(props.currentProject.original_revenue)}`}
+                {`${USDollar.format(project.original_revenue)}`}
               </TableCell>
               <TableCell numeric>
                 {`${USDollar.format(
-                  +props.currentProject.original_revenue +
+                  +project.original_revenue +
                     sumArrayOfObjects(props.changeOrders, 'co_revenue')
                 )}`}
               </TableCell>
               <TableCell numeric>
                 {sumArrayOfObjects(props.changeOrders, 'co_revenue') !== 0
                   ? `${USDollar.format(
-                      +props.currentProject.original_revenue +
+                      +project.original_revenue +
                         sumArrayOfObjects(props.changeOrders, 'co_revenue')
                     )}`
-                  : `${USDollar.format(props.currentProject.original_revenue)}`}
+                  : `${USDollar.format(project.original_revenue)}`}
               </TableCell>
               <TableCell numeric>
                 {sumArrayOfObjects(props.changeOrders, 'co_revenue') === 0
                   ? `${USDollar.format(
-                      props.currentProject.original_revenue -
-                        props.currentProject.original_revenue
+                      project.original_revenue - project.original_revenue
                     )}`
                   : `${USDollar.format(
-                      +props.currentProject.original_revenue +
+                      +project.original_revenue +
                         sumArrayOfObjects(props.changeOrders, 'co_revenue') -
-                        props.currentProject.original_revenue
+                        project.original_revenue
                     )}`}
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell>Labor Expense:</TableCell>
               <TableCell numeric>{`${USDollar.format(
-                props.currentProject.budgeted_labor_expense
+                project.budgeted_labor_expense
               )}`}</TableCell>
               <TableCell numeric>{`${USDollar.format(
-                +props.currentProject.budgeted_labor_expense +
+                +project.budgeted_labor_expense +
                   sumArrayOfObjects(props.changeOrders, 'co_labor_expense')
               )}`}</TableCell>
               <TableCell numeric>{`${USDollar.format(
@@ -268,11 +285,11 @@ const ProjectDetails = (props) => {
               <TableCell numeric>
                 {sumArrayOfObjects(props.changeOrders, 'co_labor_expense') === 0
                   ? `${USDollar.format(
-                      props.currentProject.budgeted_labor_expense -
+                      project.budgeted_labor_expense -
                         expenseTotal(laborExpenses)
                     )}`
                   : `${USDollar.format(
-                      +props.currentProject.budgeted_labor_expense +
+                      +project.budgeted_labor_expense +
                         sumArrayOfObjects(
                           props.changeOrders,
                           'co_labor_expense'
@@ -284,10 +301,10 @@ const ProjectDetails = (props) => {
             <TableRow>
               <TableCell>Material Expense:</TableCell>
               <TableCell numeric>{`${USDollar.format(
-                props.currentProject.budgeted_material_expense
+                project.budgeted_material_expense
               )}`}</TableCell>
               <TableCell numeric>{`${USDollar.format(
-                +props.currentProject.budgeted_material_expense +
+                +project.budgeted_material_expense +
                   sumArrayOfObjects(props.changeOrders, 'co_material_expense')
               )}`}</TableCell>
               <TableCell numeric>{`${USDollar.format(
@@ -299,11 +316,11 @@ const ProjectDetails = (props) => {
                   'co_material_expense'
                 ) === 0
                   ? `${USDollar.format(
-                      props.currentProject.budgeted_material_expense -
+                      project.budgeted_material_expense -
                         expenseTotal(materialExpenses)
                     )}`
                   : `${USDollar.format(
-                      +props.currentProject.budgeted_material_expense +
+                      +project.budgeted_material_expense +
                         sumArrayOfObjects(
                           props.changeOrders,
                           'co_material_expense'
@@ -315,10 +332,10 @@ const ProjectDetails = (props) => {
             <TableRow>
               <TableCell>Subcontractor Expense:</TableCell>
               <TableCell numeric>{`${USDollar.format(
-                props.currentProject.budgeted_subcontractor_expense
+                project.budgeted_subcontractor_expense
               )}`}</TableCell>
               <TableCell numeric>{`${USDollar.format(
-                +props.currentProject.budgeted_subcontractor_expense +
+                +project.budgeted_subcontractor_expense +
                   sumArrayOfObjects(
                     props.changeOrders,
                     'co_subcontractor_expense'
@@ -333,11 +350,11 @@ const ProjectDetails = (props) => {
                   'co_subcontractor_expense'
                 ) === 0
                   ? `${USDollar.format(
-                      props.currentProject.budgeted_subcontractor_expense -
+                      project.budgeted_subcontractor_expense -
                         expenseTotal(subcontractorExpenses)
                     )}`
                   : `${USDollar.format(
-                      +props.currentProject.budgeted_subcontractor_expense +
+                      +project.budgeted_subcontractor_expense +
                         sumArrayOfObjects(
                           props.changeOrders,
                           'co_subcontractor_expense'
@@ -349,10 +366,10 @@ const ProjectDetails = (props) => {
             <TableRow>
               <TableCell>Miscellaneous Expense:</TableCell>
               <TableCell numeric>{`${USDollar.format(
-                props.currentProject.budgeted_miscellaneous_expense
+                project.budgeted_miscellaneous_expense
               )}`}</TableCell>
               <TableCell>{`${USDollar.format(
-                +props.currentProject.budgeted_miscellaneous_expense +
+                +project.budgeted_miscellaneous_expense +
                   sumArrayOfObjects(
                     props.changeOrders,
                     'co_miscellaneous_expense'
@@ -367,11 +384,11 @@ const ProjectDetails = (props) => {
                   'co_miscellaneous_expense'
                 ) === 0
                   ? `${USDollar.format(
-                      props.currentProject.budgeted_miscellaneous_expense -
+                      project.budgeted_miscellaneous_expense -
                         expenseTotal(miscellaneousExpenses)
                     )}`
                   : `${USDollar.format(
-                      +props.currentProject.budgeted_miscellaneous_expense +
+                      +project.budgeted_miscellaneous_expense +
                         sumArrayOfObjects(
                           props.changeOrders,
                           'co_miscellaneous_expense'

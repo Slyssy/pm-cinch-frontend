@@ -32,7 +32,7 @@ export const addExpenses = (expenses) => {
 
 export const addChangeOrder = (changeOrder) => {
   return {
-    type: 'ADD_CHANGE_ORDER',
+    type: 'ADD_CHANGE_ORDERS',
     value: changeOrder,
   };
 };
@@ -153,6 +153,7 @@ export const getExpenses = (token, id) => {
 
 export const getChangeOrders = (token, id) => {
   return (dispatch) => {
+    console.log('getting change orders');
     axios
       .get(`https://pm-cinch-backend.vercel.app/changeOrder/${id}`, {
         headers: {
