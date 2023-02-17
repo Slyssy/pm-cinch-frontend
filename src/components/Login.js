@@ -112,10 +112,16 @@ const Login = (props) => {
           {/* <ThemeProvider theme={theme}> */}
           <Button
             onClick={login}
-            type='submit'
-            className='login-button'
+            size='small'
             variant='contained'
-            color='secondary'
+            sx={{
+              borderRadius: '5px 10px 5px 30px/30px 35px 10px 15px',
+              transition: 'all 250ms',
+              ':hover': {
+                transform: 'scale(1.05)',
+              },
+            }}
+            style={{ background: '#5d1451' }}
           >
             Login
           </Button>

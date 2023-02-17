@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 
 export default function Dashboard(props) {
-  console.log(props);
+  // console.log(props);
   // const classes = useStyles();
 
   const [projects, setProjects] = useState([]);

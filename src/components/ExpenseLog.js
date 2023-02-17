@@ -35,7 +35,7 @@ const theme = createTheme({
 });
 
 const ExpenseLog = (props) => {
-  console.log(props);
+  // console.log(props);
 
   const navigate = useNavigate();
 
@@ -45,7 +45,7 @@ const ExpenseLog = (props) => {
   const currentProject = props.projects.rows.find(
     (project) => project.id === +id
   );
-  console.log(currentProject);
+  // console.log(currentProject);
 
   // const [open, setOpen] = useState(true);
 

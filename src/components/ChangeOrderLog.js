@@ -34,7 +34,7 @@ const theme = createTheme({
 });
 
 const ChangeOrderLog = (props) => {
-  console.log(props);
+  // console.log(props);
 
   const navigate = useNavigate();
 
@@ -43,7 +43,7 @@ const ChangeOrderLog = (props) => {
   const currentProject = props.projects.rows.find(
     (project) => project.id === +id
   );
-  console.log(currentProject);
+  // console.log(currentProject);
 
   const token = props.token[0];
 

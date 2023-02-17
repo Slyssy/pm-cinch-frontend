@@ -53,6 +53,7 @@ export const getCurrentProject = (project) => {
 
 // * Create an action to get latitude and longitude.
 export const getCoordinates = (address) => {
+  // console.log(address);
   return (dispatch) => {
     Geocode.setApiKey(apiKey);
     Geocode.setLanguage('en');

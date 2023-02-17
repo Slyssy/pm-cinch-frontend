@@ -9,7 +9,7 @@ import Select from '@mui/material/Select';
 // import { selectDropdown } from '../redux/actions';
 
 export default function Dropdown(props) {
-  console.log(props);
+  // console.log(props);
   const [orgs, setOrgs] = useState([]);
   // eslint-disable-next-line
   const [selection, setSelection] = useState('');
@@ -25,7 +25,7 @@ export default function Dropdown(props) {
     axios
       .get('https://pm-cinch-backend.vercel.app/organizations')
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setOrgs(response.data);
       })
       .catch(function (error) {

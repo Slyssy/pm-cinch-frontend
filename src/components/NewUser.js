@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 
 const NewUser = (props) => {
-  console.log(props);
+  // console.log(props);
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(true);
